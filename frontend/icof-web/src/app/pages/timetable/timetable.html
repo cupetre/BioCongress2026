@@ -1,0 +1,55 @@
+<app-page-hero
+  section="Programme"
+  title="Timetable"
+  kicker="Programme · What is happening"
+  description="The full congress schedule, day by day — kept simple enough to actually flip through."
+/>
+
+<section class="section">
+  <div class="notebook-outer">
+    <div class="notebook">
+      <div class="notebook-pages">
+        <div class="nb-page left">
+          <div class="nb-title">Your three days, mapped out</div>
+          <div class="nb-sub">A quick legend before you dive in.</div>
+          <div class="nb-legend">
+            <div class="lg-item"><span class="dot dot-lecture"></span>Lecture &amp; keynote</div>
+            <div class="lg-item"><span class="dot dot-workshop"></span>Workshop — limited seats</div>
+            <div class="lg-item"><span class="dot dot-social"></span>Social &amp; ceremony</div>
+          </div>
+          <div class="nb-dates">Oct 14–16, 2027<br>Faculty of Medicine, Skopje</div>
+        </div>
+
+        <div class="notebook-spine">
+          @for (h of [1,2,3,4,5,6,7,8,9,10,11,12]; track h) {
+            <span class="hole"></span>
+          }
+        </div>
+
+        <div class="nb-page right">
+          <div class="nb-tabs">
+            @for (day of days; track day.id) {
+              <button
+                class="nb-tab"
+                [class.active]="day.id === activeDayId()"
+                (click)="selectDay(day.id)"
+              >
+                {{ day.label }}
+              </button>
+            }
+          </div>
+
+          <div class="nb-panel active">
+            @for (entry of activeDay().entries; track entry.time) {
+              <div class="page-entry">
+                <span class="pe-time">{{ entry.time }}</span>
+                <span class="pe-title"><span [class]="'dot dot-' + entry.dot"></span>{{ entry.title }}</span>
+                <div class="pe-meta">{{ entry.meta }}</div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

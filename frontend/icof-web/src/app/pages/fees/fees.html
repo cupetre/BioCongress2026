@@ -1,0 +1,28 @@
+<app-page-hero
+  section="Participation"
+  title="Fees & payments"
+  kicker="Participation · How can I participate"
+  description="Congress fees cover three days of lectures, the research day, social programme and delegate materials."
+/>
+
+<section class="section">
+  <div class="fees-list">
+    @for (fee of fees; track fee.num) {
+      <div class="fee-row">
+        @if (fee.tag) {
+          <span class="ftag">{{ fee.tag }}</span>
+        }
+        <div>
+          <span class="icon-num">{{ fee.num }}</span>
+          <div class="fcat">{{ fee.category }}</div>
+          <div class="fincl">{{ fee.includes }}</div>
+        </div>
+        <div class="fprice">{{ fee.price }}</div>
+      </div>
+    }
+  </div>
+
+  <div class="fees-note">
+    <p><strong>Every fee includes:</strong> congress badge and materials, lunch on all three days, access to the closing gala, and a digital certificate of attendance. Payment is completed online at checkout by card or bank transfer; an invoice is sent automatically once payment clears.</p>
+  </div>
+</section>

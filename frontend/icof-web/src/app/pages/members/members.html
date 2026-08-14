@@ -1,0 +1,54 @@
+<app-page-hero
+  section="ICOF"
+  title="Members"
+  kicker="ICOF · Who are we"
+  description="Every ICOF edition is run by a small group of students, professors and long-term contributors. Select a group to see this year's class composite."
+/>
+
+<section class="section">
+  <div class="cat-pill-row">
+    @for (group of groups; track group.id) {
+      <button
+        class="cat-pill"
+        [class.active]="group.id === activeGroupId()"
+        (click)="selectGroup(group.id)"
+      >
+        <span class="cp-num">{{ group.num }}</span>{{ group.label }}
+      </button>
+    }
+  </div>
+
+  <div class="cat-panel active">
+    <div class="cat-scene">
+      <h3>{{ activeGroup().label }}</h3>
+      <p>{{ activeGroup().blurb }}</p>
+    </div>
+
+    <div class="composite">
+      <div class="composite-header">
+        <div class="cname">ICOF · {{ activeGroup().label }} · 2027</div>
+        <div class="crule"></div>
+      </div>
+      <div class="composite-grid">
+        @for (person of activeGroup().people; track person.name) {
+          <button class="composite-cell" (click)="openPerson(person)">
+            <div class="composite-photo"><span class="cinitial">{{ person.initial }}</span></div>
+            <div class="cn">{{ person.name }}</div>
+            <div class="cr">{{ person.role }}</div>
+          </button>
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+@if (selectedPerson(); as person) {
+  <div class="modal-overlay open" (click)="closeModal()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="closeModal()" aria-label="Close">×</button>
+      <div class="m-name">{{ person.name }}</div>
+      <div class="m-role">{{ person.role }}</div>
+      <p class="m-bio">{{ person.bio }}</p>
+    </div>
+  </div>
+}
