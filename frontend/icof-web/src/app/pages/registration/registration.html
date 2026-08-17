@@ -1,0 +1,92 @@
+<app-page-hero
+  section="Participation"
+  title="Registration"
+  kicker="Participation · Eligibility, status and how to register"
+  description="Choose the sessions you'd like to attend and tell us a little about yourself — we'll confirm your spot by email."
+/>
+
+<section class="section">
+  <form class="reg-form" [formGroup]="form" (ngSubmit)="submit()">
+    @if (status() === 'success') {
+      <div class="form-success">
+        <strong>You're registered.</strong>
+        <p>Check your inbox for a confirmation email with your session picks.</p>
+        <button type="button" class="dismiss" (click)="dismissSuccess()">Register someone else</button>
+      </div>
+    } @else {
+      <div class="form-grid">
+        <div class="field">
+          <label for="r-name">Full name</label>
+          <input
+            id="r-name"
+            type="text"
+            formControlName="fullName"
+            placeholder="Your name"
+            [class.invalid]="isInvalid('fullName')"
+          >
+          @if (isInvalid('fullName')) {
+            <span class="field-error">Enter your full name.</span>
+          }
+        </div>
+
+        <div class="field">
+          <label for="r-email">Email</label>
+          <input
+            id="r-email"
+            type="email"
+            formControlName="email"
+            placeholder="you@email.com"
+            [class.invalid]="isInvalid('email')"
+          >
+          @if (isInvalid('email')) {
+            <span class="field-error">Enter a valid email address.</span>
+          }
+        </div>
+
+        <div class="field">
+          <label for="r-institution">Faculty / institution</label>
+          <input
+            id="r-institution"
+            type="text"
+            formControlName="institution"
+            placeholder="e.g. Faculty of Medicine, Skopje"
+            [class.invalid]="isInvalid('institution')"
+          >
+          @if (isInvalid('institution')) {
+            <span class="field-error">Tell us your faculty or institution.</span>
+          }
+        </div>
+
+        <div class="field">
+          <label for="r-category">Registration category</label>
+          <select id="r-category" formControlName="category">
+            <option value="student-partner">Student — partner faculty (€60)</option>
+            <option value="student-nonpartner">Student — non-partner faculty (€85)</option>
+            <option value="young-professional">Young professional (€110)</option>
+            <option value="single-day">Single day pass (€35)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="sessions-field" [formGroup]="sessionsGroup">
+        <span class="sessions-label">Which sessions would you like to attend?</span>
+        <div class="sessions-list">
+          @for (session of sessions; track session.id) {
+            <label class="session-row">
+              <input type="checkbox" [formControlName]="session.id">
+              <span class="session-info">
+                <span class="session-title">{{ session.title }}</span>
+                <span class="session-meta">{{ session.day }} · {{ session.time }}</span>
+              </span>
+              <span class="status-pill" [class]="'status-' + session.status">{{ session.statusLabel }}</span>
+            </label>
+          }
+        </div>
+      </div>
+
+      <button class="btn-primary" type="submit" [disabled]="status() === 'submitting'">
+        {{ status() === 'submitting' ? 'Submitting…' : 'Register' }}
+      </button>
+    }
+  </form>
+</section>

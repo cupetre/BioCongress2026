@@ -1,0 +1,17 @@
+<div class="item-list">
+  @for (item of items(); track item.title) {
+    <div class="item-card">
+      <div class="info">
+        <h3>{{ item.title }}</h3>
+        <p>{{ item.description }}</p>
+      </div>
+      <div class="meta">
+        @if (item.status) {
+          <span class="status-pill" [class]="'status-' + item.status">{{ item.statusLabel }}</span>
+        }
+        <span>{{ item.day }} · {{ item.time }}</span>
+        <span>{{ item.room }}</span>
+      </div>
+    </div>
+  }
+</div>

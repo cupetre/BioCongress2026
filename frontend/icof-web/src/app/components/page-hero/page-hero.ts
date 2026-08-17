@@ -12,4 +12,5 @@ export class PageHero {
   title = input.required<string>();
   kicker = input.required<string>();
   description = input.required<string>();
+  variant = input<'navy' | 'light'>('navy');
 }

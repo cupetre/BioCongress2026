@@ -1,0 +1,22 @@
+<app-page-hero
+  variant="light"
+  section="Programme"
+  title="Lectures"
+  kicker="Programme · Keynote and academic sessions"
+  description="Keynotes, grand rounds and academic sessions — open to every registered delegate, no separate sign-up needed."
+/>
+
+<section class="section">
+  <div class="timeline">
+    @for (lecture of lectures; track lecture.title) {
+      <div class="timeline-item">
+        <div class="time">{{ lecture.day }} · {{ lecture.time }}</div>
+        <h4>{{ lecture.title }}</h4>
+        <p>{{ lecture.description }}</p>
+        <div class="meta-row">
+          <span>{{ lecture.room }}</span>
+        </div>
+      </div>
+    }
+  </div>
+</section>

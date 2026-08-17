@@ -6,6 +6,7 @@ interface Person {
   role: string;
   bio: string;
   initial: string;
+  image?: string;
 }
 
 interface MemberGroup {

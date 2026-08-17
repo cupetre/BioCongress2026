@@ -1,269 +1,563 @@
 .section {
-  padding: 96px var(--page-margin);
+  padding: clamp(3rem, 6vw, 5rem) var(--page-margin);
 }
 
-/* ---- Category pills ---- */
+
+/* =========================================
+   CATEGORY BUTTONS
+   ========================================= */
 
 .cat-pill-row {
+  width: min(100%, 68rem);
+  margin: 0 auto;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+
   display: flex;
-  gap: 10px;
   justify-content: center;
   flex-wrap: wrap;
-  margin-bottom: 8px;
+  gap: 0.6rem;
 }
 
 .cat-pill {
-  font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 12.5px;
-  letter-spacing: .02em;
-  padding: 10px 18px 10px 14px;
-  border: 1px solid rgba(20, 33, 46, .2);
-  border-radius: 20px;
-  background: var(--paper);
-  color: var(--navy);
-  cursor: pointer;
-  transition: all .2s ease;
   display: inline-flex;
-  gap: 8px;
   align-items: center;
+  gap: 0.45rem;
+
+  padding: 0.6rem 1rem;
+
+  background: var(--navy);
+  color: var(--cream);
+
+  border: 1px solid rgba(225, 224, 206, 0.35);
+  border-radius: 2rem;
+
+  font-family: var(--font-sans);
+  font-size: clamp(0.75rem, 1vw, 0.85rem);
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
 }
 
 .cat-pill .cp-num {
   font-family: var(--font-mono);
-  font-size: 10.5px;
-  color: var(--red);
-  font-weight: 400;
+  font-size: 0.65rem;
+  color: rgba(225, 224, 206, 0.55);
 }
 
 .cat-pill:hover {
-  border-color: var(--navy);
+  border-color: var(--cream);
+  transform: translateY(-1px);
 }
 
 .cat-pill.active {
-  background: var(--navy);
+  background: var(--red);
+  border-color: var(--red);
   color: var(--cream);
-  border-color: var(--navy);
 }
 
 .cat-pill.active .cp-num {
-  color: var(--blue);
+  color: var(--cream);
 }
+
+/* =========================================
+   ACTIVE CATEGORY INTRO
+   ========================================= */
 
 .cat-panel {
-  padding-top: 44px;
+  padding-top: 0;
 }
+
 
 .cat-scene {
-  background: var(--cream);
-  border-left: 3px solid var(--red);
-  padding: 28px 32px;
-  margin-bottom: 40px;
-  max-width: 720px;
-  margin-left: auto;
-  margin-right: auto;
+  width: min(100%, 48rem);
+
+  margin:
+    0 auto
+    clamp(2rem, 5vw, 3.5rem);
+
+  padding: 0;
+
+  text-align: center;
+
+  background: transparent;
+
+  border: none;
 }
+
 
 .cat-scene h3 {
+  margin: 0 0 0.8rem;
+
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 23px;
-  color: var(--navy);
-  margin-bottom: 8px;
+
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 500;
+
 }
+
 
 .cat-scene p {
-  font-size: 13.5px;
+  width: min(100%, 40rem);
+
+  margin: 0 auto;
+
+  font-size: clamp(0.95rem, 1.25vw, 1.05rem);
+
   line-height: 1.7;
-  color: rgba(20, 33, 46, .68);
 }
 
-/* ---- Class composite ---- */
+
+
+/* =========================================
+   COMPOSITE
+   ========================================= */
 
 .composite {
-  background: linear-gradient(170deg, #F7F4E8, #EFEAD6);
-  border: 1px solid rgba(20, 33, 46, .12);
-  padding: 44px 40px;
   position: relative;
-  max-width: 1100px;
+
+  width: min(100%, 70rem);
+
   margin: 0 auto;
+
+  padding:
+    clamp(2rem, 4vw, 3rem)
+    clamp(1.25rem, 3vw, 2.5rem);
+
+  background: var(--navy);
+  color: var(--cream);
+
+  border: 2px solid var(--red);
+
+  box-shadow:
+    0 1.5rem 4rem rgba(0, 0, 0, 0.16);
 }
 
 .composite::before {
   content: '';
+
   position: absolute;
   inset: 10px;
-  border: 1px solid rgba(76, 7, 14, .15);
+
+  border: 1px solid rgba(225, 224, 206, 0.45);
+
   pointer-events: none;
 }
 
+
+
+/* =========================================
+   COMPOSITE HEADER
+   ========================================= */
+
 .composite-header {
-  text-align: center;
-  margin-bottom: 36px;
   position: relative;
-}
 
-.composite-header .cname {
-  font-family: var(--font-display);
-  font-size: 22px;
-  color: var(--navy);
-  letter-spacing: .02em;
-}
+  margin-bottom: clamp(2rem, 4vw, 3rem);
 
-.composite-header .crule {
-  width: 80px;
-  height: 1px;
-  background: var(--red);
-  margin: 12px auto 0;
-}
-
-.composite-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
-  gap: 32px 22px;
-  position: relative;
-}
-
-.composite-cell {
   display: flex;
   flex-direction: column;
   align-items: center;
+
   text-align: center;
-  cursor: pointer;
-  background: none;
-  border: none;
-  padding: 0;
-  font-family: inherit;
 }
+
+.composite-brand {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+
+  color: rgba(225, 224, 206, 0.65);
+}
+
+.composite-header h2 {
+  margin: 0;
+
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.9vw, 1.95rem);
+  font-weight: 500;
+
+  color: var(--cream);
+}
+
+.composite-dot {
+  margin: 0.35rem 0;
+
+  color: var(--cream);
+
+  font-size: 0.85rem;
+}
+
+.composite-year {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+
+  color: rgba(225, 224, 206, 0.65);
+}
+
+.composite-header .crule {
+  display: none;
+}
+
+
+
+/* =========================================
+   DYNAMIC MEMBERS GRID
+   ========================================= */
+
+.composite-grid {
+  display: grid;
+
+  /*
+    Important for your admin functionality:
+    new members automatically create new rows.
+  */
+  grid-template-columns:
+    repeat(auto-fit, minmax(7rem, 9rem));
+
+  justify-content: center;
+
+  gap:
+    clamp(1.5rem, 3vw, 2.2rem)
+    clamp(1rem, 2vw, 1.5rem);
+}
+
+
+
+/* =========================================
+   MEMBER CARD
+   ========================================= */
+
+.composite-cell {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 0;
+
+  background: transparent;
+  border: none;
+
+  text-align: center;
+
+  font-family: inherit;
+
+  cursor: pointer;
+}
+
+
+
+/* smaller portrait */
 
 .composite-photo {
   width: 100%;
+  max-width: 8.5rem;
+
   aspect-ratio: 4 / 5;
-  position: relative;
-  border: 3px solid #FBFAF0;
-  box-shadow: 0 0 0 1px rgba(20, 33, 46, .15);
-  border-radius: 2px;
+
   overflow: hidden;
-  background: linear-gradient(155deg, #E9E2C8, #D8CFA8);
-  transition: border-color .2s ease;
+
+  position: relative;
+
+  background: #d8d8d8;
+
+  border: 0.25rem solid #f5f3ea;
+
+  box-shadow:
+    0 0.45rem 1rem rgba(0, 0, 0, 0.18);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
-.composite-photo::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 30% 25%, rgba(76, 7, 14, .06), transparent 55%);
+
+.composite-photo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+  object-position: center top;
+
+  display: block;
 }
+
 
 .composite-photo .cinitial {
   position: absolute;
+
   inset: 0;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   font-family: var(--font-display);
-  font-size: 36px;
-  color: rgba(20, 33, 46, .2);
+
+  font-size: 2.4rem;
+
+  color: rgba(19, 39, 63, 0.35);
 }
 
+
 .composite-cell:hover .composite-photo {
-  border-color: var(--red);
+  transform: translateY(-0.25rem);
+
+  box-shadow:
+    0 0.7rem 1.5rem rgba(0, 0, 0, 0.3);
 }
 
 .composite-cell .cn {
+  margin-top: 0.8rem;
+
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 14.5px;
-  color: var(--navy);
-  margin-top: 12px;
+  font-size: 1.02rem;
+
+  color: var(--cream);
 }
 
 .composite-cell .cr {
+  margin-top: 0.15rem;
+
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: .04em;
-  color: var(--red);
-  margin-top: 2px;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+
+  color: rgba(225, 224, 206, 0.6);
 }
 
-/* ---- Modal ---- */
+
+/* =========================================
+   MODAL
+   ========================================= */
 
 .modal-overlay {
   position: fixed;
+
   inset: 0;
-  background: rgba(10, 24, 38, .72);
+
+  z-index: 200;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
-  z-index: 200;
+
+  padding: 1.5rem;
+
+  background: rgba(5, 12, 20, 0.78);
+
+  backdrop-filter: blur(5px);
 }
 
+
 .modal-box {
-  background: var(--paper);
-  max-width: 520px;
-  width: 100%;
-  padding: 44px;
   position: relative;
-  border-radius: 2px;
-  max-height: 84vh;
+
+  width: min(100%, 46rem);
+
+  max-height: 85vh;
+
   overflow-y: auto;
+
+  padding: clamp(1.5rem, 4vw, 2.5rem);
+
+  background: var(--cream);
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(9rem, 13rem)
+    1fr;
+
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+
+  align-items: center;
+
+  box-shadow:
+    0 2rem 5rem rgba(0, 0, 0, 0.35);
 }
+
+
+.modal-photo {
+  width: 100%;
+
+  aspect-ratio: 4 / 5;
+
+  overflow: hidden;
+
+  background: #d8d8d8;
+
+  border: 0.3rem solid white;
+}
+
+
+.modal-photo img {
+  width: 100%;
+  height: 100%;
+
+  display: block;
+
+  object-fit: cover;
+  object-position: center top;
+}
+
+
+.modal-photo span {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: var(--font-display);
+
+  font-size: 3rem;
+
+  color: rgba(19, 39, 63, 0.3);
+}
+
+
+.modal-content {
+  min-width: 0;
+}
+
 
 .modal-close {
   position: absolute;
-  top: 16px;
-  right: 18px;
+
+  top: 1rem;
+  right: 1.15rem;
+
+  padding: 0;
+
   background: none;
   border: none;
-  font-family: var(--font-mono);
-  font-size: 22px;
+
   color: var(--navy);
+
+  font-size: 1.5rem;
+
   cursor: pointer;
-  line-height: 1;
 }
 
-.modal-box .m-name {
+
+.m-name {
+  margin-bottom: 0.35rem;
+
   font-family: var(--font-display);
-  font-size: 25px;
+
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+
   color: var(--navy);
-  margin-bottom: 4px;
 }
 
-.modal-box .m-role {
+
+.m-role {
+  margin-bottom: 1.4rem;
+
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: .06em;
+
+  font-size: 0.72rem;
+
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+
   color: var(--red);
-  margin-bottom: 22px;
 }
 
-.modal-box .m-bio {
-  font-size: 14px;
-  line-height: 1.85;
-  color: rgba(20, 33, 46, .72);
+
+.m-bio {
+  margin: 0;
+
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+
+  line-height: 1.8;
+
+  color: rgba(19, 39, 63, 0.76);
 }
+
+
+
+/* =========================================
+   TABLET
+   ========================================= */
 
 @media (max-width: 900px) {
+
   .section {
-    padding: 64px var(--page-margin);
-  }
-
-  .cat-panel {
-    padding-top: 36px;
-  }
-
-  .cat-scene {
-    padding: 32px 24px;
-  }
-
-  .composite {
-    padding: 30px 20px;
+    padding-inline: clamp(1rem, 4vw, 2rem);
   }
 
   .composite-grid {
-    grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
-    gap: 22px 14px;
+    grid-template-columns:
+      repeat(auto-fit, minmax(6.5rem, 8rem));
+  }
+}
+
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 600px) {
+
+  .section {
+    padding:
+      3rem
+      1rem;
+  }
+
+
+  .cat-pill {
+    padding: 0.55rem 0.8rem;
+
+    font-size: 0.72rem;
+  }
+
+
+  .cat-scene h3 {
+    font-size: 1.8rem;
+  }
+
+
+  .composite {
+    padding:
+      2rem
+      1rem;
+  }
+
+
+  .composite-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 7rem));
+
+    gap: 1.7rem 1rem;
+  }
+
+
+  .modal-box {
+    grid-template-columns: 1fr;
+
+    width: min(100%, 25rem);
+
+    text-align: center;
+  }
+
+
+  .modal-photo {
+    width: min(10rem, 50%);
+
+    margin-inline: auto;
   }
 }

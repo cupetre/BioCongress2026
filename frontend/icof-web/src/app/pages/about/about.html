@@ -1,0 +1,32 @@
+<app-page-hero
+  variant="light"
+  section="ICOF"
+  title="About"
+  kicker="ICOF · Who we are"
+  description="The International Congress Of (bio)medical Faculties — organised entirely by students, for students."
+/>
+
+<div class="fact-stripe">
+  <span>Fun fact — ICOF's first edition in 2023 ran out of a single lecture hall with zero budget. Three editions later, it welcomes 1,200+ students from 48 countries.</span>
+</div>
+
+<section class="section">
+  <div class="content-columns">
+    <p class="lead">ICOF brings together medical, dental and biomedical students from across the world for a week of lectures, hands-on workshops and shared research, hosted by the Faculty of Medicine in Skopje.</p>
+    <p>Every session, workshop and social event is planned end to end by an all-student organising committee, working alongside faculty professors and clinicians. Whether you're presenting research, practising a clinical skill, or simply meeting people from other faculties, ICOF is built around students learning from and with each other.</p>
+    <a class="text-link" routerLink="/history">Read the full story of ICOF →</a>
+  </div>
+</section>
+
+<section class="section section-alt">
+  <div class="info-cards">
+    @for (card of cards; track card.num) {
+      <div class="info-card">
+        <span class="icon-num">{{ card.num }}</span>
+        <h3>{{ card.title }}</h3>
+        <p>{{ card.description }}</p>
+        <a class="text-link" [routerLink]="card.linkPath">{{ card.linkLabel }} →</a>
+      </div>
+    }
+  </div>
+</section>

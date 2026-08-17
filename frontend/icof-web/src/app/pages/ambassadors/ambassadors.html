@@ -1,0 +1,34 @@
+<app-page-hero
+  variant="light"
+  section="ICOF"
+  title="Ambassadors"
+  kicker="ICOF · Who are we"
+  description="Our international representatives — one per partner faculty, keeping their home institution connected to ICOF year-round."
+/>
+
+<section class="team-section">
+  <div class="people-grid">
+    @for (ambassador of ambassadors; track ambassador.name) {
+      <button class="person-card" (click)="open(ambassador)">
+        <div class="photo"></div>
+        <span class="initial">{{ ambassador.initial }}</span>
+        <div class="scrim"></div>
+        <div class="p-info">
+          <div class="pn">{{ ambassador.name }}</div>
+          <div class="pr">{{ ambassador.country }}</div>
+        </div>
+      </button>
+    }
+  </div>
+</section>
+
+@if (selectedAmbassador(); as ambassador) {
+  <div class="modal-overlay open" (click)="close()">
+    <div class="modal-box" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="close()" aria-label="Close">×</button>
+      <div class="m-name">{{ ambassador.name }}</div>
+      <div class="m-role">{{ ambassador.country }}</div>
+      <p class="m-bio">{{ ambassador.bio }}</p>
+    </div>
+  </div>
+}

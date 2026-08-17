@@ -1,0 +1,9 @@
+.section {
+  padding: 96px var(--page-margin);
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding: 64px var(--page-margin);
+  }
+}

@@ -1,0 +1,144 @@
+.team-section {
+  background: var(--navy);
+  padding: 96px var(--page-margin);
+}
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.person-card {
+  aspect-ratio: 3 / 4;
+  position: relative;
+  border-radius: 2px;
+  overflow: hidden;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  text-align: left;
+  display: block;
+  width: 100%;
+}
+
+.person-card .photo {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(115deg, rgba(0, 0, 0, .15) 0 10px, transparent 10px 20px), linear-gradient(155deg, #2c4a68, var(--navy-deep));
+}
+
+.person-card .initial {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 50px;
+  color: rgba(225, 224, 206, .16);
+}
+
+.person-card .scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(10, 24, 38, .92), transparent 55%);
+}
+
+.person-card .p-info {
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 14px;
+  color: var(--cream);
+}
+
+.person-card .p-info .pn {
+  font-family: var(--font-display);
+  font-size: 16px;
+}
+
+.person-card .p-info .pr {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .05em;
+  color: var(--blue);
+  margin-top: 3px;
+}
+
+.person-card:hover .photo {
+  outline: 1px solid var(--blue);
+  outline-offset: -1px;
+}
+
+/* ---- Modal ---- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 24, 38, .72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 200;
+}
+
+.modal-box {
+  background: var(--paper);
+  max-width: 520px;
+  width: 100%;
+  padding: 44px;
+  position: relative;
+  border-radius: 2px;
+  max-height: 84vh;
+  overflow-y: auto;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 22px;
+  color: var(--navy);
+  cursor: pointer;
+  line-height: 1;
+}
+
+.modal-box .m-name {
+  font-family: var(--font-display);
+  font-size: 25px;
+  color: var(--navy);
+  margin-bottom: 4px;
+}
+
+.modal-box .m-role {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 22px;
+}
+
+.modal-box .m-bio {
+  font-size: 14px;
+  line-height: 1.85;
+  color: rgba(20, 33, 46, .72);
+}
+
+@media (max-width: 900px) {
+  .team-section {
+    padding: 64px var(--page-margin);
+  }
+
+  .people-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

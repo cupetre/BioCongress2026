@@ -70,3 +70,37 @@
   max-width: 520px;
   margin: 0 auto;
 }
+
+/* ---- Light variant: beige background, navy type, no stripe texture ---- */
+
+.page-hero.light {
+  background: var(--paper);
+}
+
+.page-hero.light::before {
+  display: none;
+}
+
+.page-hero.light .kicker {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.page-hero.light h1 {
+  color: var(--navy);
+  font-weight: 600;
+  font-size: clamp(34px, 4.6vw, 56px);
+}
+
+.page-hero.light p {
+  color: var(--navy);
+  opacity: .75;
+}
+
+.page-hero.light .breadcrumb {
+  color: rgba(20, 33, 46, .4);
+}
+
+.page-hero.light .breadcrumb a {
+  color: var(--navy);
+}
