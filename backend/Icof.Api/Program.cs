@@ -14,6 +14,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 builder.Services.AddScoped<IEventRegistrationService, EventRegistrationService>();
 
+builder.Services.Configure<BlobStorageOptions>(builder.Configuration.GetSection(BlobStorageOptions.SectionName));
+builder.Services.AddSingleton<IBlobStorageService, BlobStorageService>();
+
 builder.Services
     .AddIdentityApiEndpoints<ApplicationUser>(options =>
     {
@@ -35,6 +38,8 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
