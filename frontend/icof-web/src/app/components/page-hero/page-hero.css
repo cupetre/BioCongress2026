@@ -10,7 +10,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(115deg, rgba(255, 255, 255, .02) 0 16px, rgba(0, 0, 0, .05) 16px 32px);
+  background: var(--navy-deep);
   pointer-events: none;
 }
 
