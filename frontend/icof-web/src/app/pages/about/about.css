@@ -21,7 +21,6 @@
   color: var(--cream);
 }
 
-
 .section {
   padding: clamp(3rem, 7vw, 6rem) var(--page-margin);
 }
@@ -142,22 +141,17 @@
   color: rgba(225, 224, 206, 0.8);
 }
 
-
 .info-card .text-link {
   margin-top: auto;
 
   color: var(--cream);
   border-bottom-color: var(--cream);
 }
-
-
 @media (max-width: 900px) {
   .info-cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-
-
 @media (max-width: 600px) {
   .section {
     padding-inline: 1.25rem;
