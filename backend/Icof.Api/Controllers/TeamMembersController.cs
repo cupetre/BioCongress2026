@@ -21,9 +21,7 @@ public class TeamMembersController : ControllerBase
         _blobStorage = blobStorage;
     }
 
-    // TODO: restrict to an Admin role once roles are seeded/assigned — [Authorize] just
-    // requires *some* logged-in user for now, same interim approach as ImageController.
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<TeamMemberDto>> Create(
         [FromBody] CreateTeamMemberRequest request,
@@ -97,8 +95,7 @@ public class TeamMembersController : ControllerBase
         return CreatedAtAction(nameof(Create), new { id = member.Id }, dto);
     }
 
-    // TODO: restrict to an Admin role once roles are seeded/assigned.
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPatch("{id:guid}")]
     public async Task<ActionResult<TeamMemberDto>> Update(
         Guid id,

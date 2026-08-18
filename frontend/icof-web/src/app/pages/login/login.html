@@ -1,0 +1,48 @@
+<div class="breadcrumb-bar">
+  <div class="breadcrumb"><a routerLink="/">Home</a> / Login</div>
+</div>
+
+<section class="section login-section">
+  <div class="login-card">
+    <div class="kicker">ICOF · Admin</div>
+    <h2>Log in</h2>
+
+    <form class="login-form" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="field">
+        <label for="l-email">Email</label>
+        <input
+          id="l-email"
+          type="email"
+          formControlName="email"
+          placeholder="you@icof.mk"
+          [class.invalid]="isInvalid('email')"
+        >
+        @if (isInvalid('email')) {
+          <span class="field-error">Enter a valid email address.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="l-password">Password</label>
+        <input
+          id="l-password"
+          type="password"
+          formControlName="password"
+          placeholder="••••••••"
+          [class.invalid]="isInvalid('password')"
+        >
+        @if (isInvalid('password')) {
+          <span class="field-error">Enter your password.</span>
+        }
+      </div>
+
+      @if (status() === 'error') {
+        <span class="field-error">Incorrect email or password.</span>
+      }
+
+      <button class="btn-primary" type="submit" [disabled]="status() === 'submitting'">
+        {{ status() === 'submitting' ? 'Logging in…' : 'Log in' }}
+      </button>
+    </form>
+  </div>
+</section>

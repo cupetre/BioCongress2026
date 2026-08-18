@@ -62,9 +62,7 @@ public class PeopleGroupsController : ControllerBase
         return Ok(result);
     }
 
-    // TODO: restrict to an Admin role once roles are seeded/assigned — [Authorize] just
-    // requires *some* logged-in user for now, same interim approach as ImageController.
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPost]
     public async Task<ActionResult<PeopleGroupDto>> CreateGroup(
         [FromBody] CreatePeopleGroupRequest request,

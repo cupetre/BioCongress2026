@@ -1,0 +1,120 @@
+.breadcrumb-bar {
+  padding: 26px var(--page-margin) 0;
+  background: var(--cream);
+}
+
+.breadcrumb {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .05em;
+  color: rgba(20, 33, 46, .45);
+}
+
+.breadcrumb a {
+  color: rgba(20, 33, 46, .75);
+  border-bottom: 1px solid transparent;
+}
+
+.breadcrumb a:hover {
+  border-bottom-color: var(--red);
+}
+
+.login-section {
+  background: var(--cream);
+  padding: 48px var(--page-margin) 120px;
+  display: flex;
+  justify-content: center;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 380px;
+}
+
+.login-card .kicker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 14px;
+}
+
+.login-card h2 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3.4vw, 38px);
+  text-transform: uppercase;
+  letter-spacing: .01em;
+  color: var(--navy);
+  line-height: 1.05;
+  margin-bottom: 32px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.field label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(20, 33, 46, .5);
+  margin-bottom: 8px;
+}
+
+.field input {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgba(20, 33, 46, .28);
+  background: transparent;
+  padding: 8px 2px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  color: var(--navy);
+  outline: none;
+  transition: border-color .25s ease;
+}
+
+.field input:focus {
+  border-color: var(--red);
+}
+
+.field input.invalid {
+  border-color: var(--red-light);
+}
+
+.field-error {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--red-light);
+}
+
+.btn-primary {
+  align-self: flex-start;
+  margin-top: 6px;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 13px;
+  padding: 13px 26px;
+  border-radius: 2px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: var(--red);
+  color: var(--cream);
+  transition: background .25s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--red-light);
+}
+
+.btn-primary:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}

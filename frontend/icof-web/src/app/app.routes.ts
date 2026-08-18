@@ -11,9 +11,11 @@ import { Timetable } from './pages/timetable/timetable';
 import { Registration } from './pages/registration/registration';
 import { Fees } from './pages/fees/fees';
 import { Contact } from './pages/contact/contact';
+import { Login } from './pages/login/login';
 
 export const routes: Routes = [
   { path: '', component: Home },
+  { path: 'login', component: Login },
   { path: 'about', component: About },
   { path: 'history', component: History },
   { path: 'ambassadors', component: Ambassadors },

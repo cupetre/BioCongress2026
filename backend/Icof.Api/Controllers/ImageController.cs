@@ -19,9 +19,7 @@ public class ImageController : ControllerBase
         _blobStorage = blobStorage;
     }
 
-    // TODO: restrict to an Admin role once roles are seeded/assigned — [Authorize] just
-    // requires *some* logged-in user for now.
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [HttpPost("people")]
     [RequestSizeLimit(MaxFileSizeBytes)]
     public async Task<IActionResult> UploadPersonImage(IFormFile file, CancellationToken cancellationToken)
