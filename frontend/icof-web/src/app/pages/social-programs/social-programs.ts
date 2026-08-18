@@ -1,6 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { PageHero } from '../../components/page-hero/page-hero';
 import { ItemList, ProgrammeItem } from '../../components/item-list/item-list';
+import { EventDto, EventsService } from '../../core/events.service';
+import { toDayLabel, toTimeLabel } from '../../core/congress-dates';
+
+function toProgrammeItem(e: EventDto): ProgrammeItem {
+  return {
+    title: e.title,
+    description: e.summary ?? '',
+    day: toDayLabel(e.startsAtUtc),
+    time: toTimeLabel(e.startsAtUtc),
+    room: e.room ?? ''
+  };
+}
 
 @Component({
   selector: 'app-social-programs',
@@ -8,35 +20,15 @@ import { ItemList, ProgrammeItem } from '../../components/item-list/item-list';
   templateUrl: './social-programs.html',
   styleUrl: './social-programs.css'
 })
-export class SocialPrograms {
-  readonly events: ProgrammeItem[] = [
-    {
-      title: 'Registration & welcome coffee',
-      description: 'Check in, collect your badge and delegate pack before the congress opens.',
-      day: 'Day 1',
-      time: '09:00',
-      room: 'Main lobby'
-    },
-    {
-      title: 'Welcome reception',
-      description: 'Informal networking for all delegates, faculty and speakers to kick off the congress.',
-      day: 'Day 1',
-      time: '18:00',
-      room: 'Faculty courtyard'
-    },
-    {
-      title: 'Closing keynote & awards',
-      description: 'Congress highlights and the awards ceremony, recognising this year’s top abstracts.',
-      day: 'Day 3',
-      time: '19:00',
-      room: 'Main auditorium'
-    },
-    {
-      title: 'Closing gala',
-      description: 'An evening of celebration to close the congress — dinner, music and one last chance to connect.',
-      day: 'Day 3',
-      time: '20:30',
-      room: 'Faculty courtyard'
-    }
-  ];
+export class SocialPrograms implements OnInit {
+  private readonly eventsService = inject(EventsService);
+
+  readonly events = signal<ProgrammeItem[]>([]);
+
+  ngOnInit(): void {
+    this.eventsService.getEvents('Session').subscribe({
+      next: (events) => this.events.set(events.map(toProgrammeItem)),
+      error: (err) => console.error('Failed to load social programs', err)
+    });
+  }
 }

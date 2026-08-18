@@ -1,6 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { PageHero } from '../../components/page-hero/page-hero';
-import { ItemList, ProgrammeItem } from '../../components/item-list/item-list';
+import { ItemList, ItemStatus, ProgrammeItem } from '../../components/item-list/item-list';
+import { EventDto, EventsService, EventStatusApi } from '../../core/events.service';
+import { toDayLabel, toTimeLabel } from '../../core/congress-dates';
+
+const STATUS_MAP: Partial<Record<EventStatusApi, ItemStatus>> = {
+  Open: 'open',
+  Full: 'full',
+  Upcoming: 'upcoming',
+  Closed: 'closed'
+};
+
+const STATUS_LABELS: Record<ItemStatus, string> = {
+  open: 'Open',
+  full: 'Full',
+  upcoming: 'Registration opens soon',
+  closed: 'Closed'
+};
+
+function toProgrammeItem(e: EventDto): ProgrammeItem {
+  const status = STATUS_MAP[e.status] ?? 'closed';
+  return {
+    title: e.title,
+    description: e.summary ?? '',
+    day: toDayLabel(e.startsAtUtc),
+    time: toTimeLabel(e.startsAtUtc),
+    room: e.room ?? '',
+    status,
+    statusLabel: STATUS_LABELS[status]
+  };
+}
 
 @Component({
   selector: 'app-workshops',
@@ -8,43 +37,15 @@ import { ItemList, ProgrammeItem } from '../../components/item-list/item-list';
   templateUrl: './workshops.html',
   styleUrl: './workshops.css'
 })
-export class Workshops {
-  readonly workshops: ProgrammeItem[] = [
-    {
-      title: 'Research methods clinic',
-      description: 'Structuring a research abstract from raw data to submission-ready copy. Small group, hands-on.',
-      day: 'Day 1',
-      time: '11:00',
-      room: 'Room C1',
-      status: 'open',
-      statusLabel: 'Open'
-    },
-    {
-      title: 'Suturing & wound closure',
-      description: 'Hands-on surgical skills lab covering basic suturing technique and wound-closure principles.',
-      day: 'Day 1',
-      time: '14:00',
-      room: 'Room B2',
-      status: 'full',
-      statusLabel: 'Full'
-    },
-    {
-      title: 'Point-of-care ultrasound',
-      description: 'An introduction to bedside ultrasound, with supervised scanning practice in small groups.',
-      day: 'Day 2',
-      time: '14:00',
-      room: 'Room B3',
-      status: 'open',
-      statusLabel: 'Open'
-    },
-    {
-      title: 'Emergency simulation',
-      description: 'A simulated trauma scenario in the skills lab, followed by a structured debrief with faculty.',
-      day: 'Day 3',
-      time: '09:00',
-      room: 'Simulation centre',
-      status: 'upcoming',
-      statusLabel: 'Registration opens soon'
-    }
-  ];
+export class Workshops implements OnInit {
+  private readonly eventsService = inject(EventsService);
+
+  readonly workshops = signal<ProgrammeItem[]>([]);
+
+  ngOnInit(): void {
+    this.eventsService.getEvents('Workshop').subscribe({
+      next: (events) => this.workshops.set(events.map(toProgrammeItem)),
+      error: (err) => console.error('Failed to load workshops', err)
+    });
+  }
 }

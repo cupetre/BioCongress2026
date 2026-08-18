@@ -28,7 +28,7 @@
 
         <div class="nb-page right">
           <div class="nb-tabs">
-            @for (day of days; track day.id) {
+            @for (day of days(); track day.id) {
               <button
                 class="nb-tab"
                 [class.active]="day.id === activeDayId()"
@@ -39,8 +39,9 @@
             }
           </div>
 
+          @if (activeDay(); as day) {
           <div class="nb-panel active">
-            @for (entry of activeDay().entries; track entry.time) {
+            @for (entry of day.entries; track entry.time) {
               <div class="page-entry">
                 <span class="pe-time">{{ entry.time }}</span>
                 <span class="pe-title"><span [class]="'dot dot-' + entry.dot"></span>{{ entry.title }}</span>
@@ -48,6 +49,7 @@
               </div>
             }
           </div>
+          }
         </div>
       </div>
     </div>

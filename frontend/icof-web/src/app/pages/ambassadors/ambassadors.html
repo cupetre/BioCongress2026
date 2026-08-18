@@ -8,10 +8,14 @@
 
 <section class="team-section">
   <div class="people-grid">
-    @for (ambassador of ambassadors; track ambassador.name) {
+    @for (ambassador of ambassadors(); track ambassador.name) {
       <button class="person-card" (click)="open(ambassador)">
+        @if (ambassador.image) {
+        <img class="photo" [src]="ambassador.image" [alt]="ambassador.name">
+        } @else {
         <div class="photo"></div>
         <span class="initial">{{ ambassador.initial }}</span>
+        }
         <div class="scrim"></div>
         <div class="p-info">
           <div class="pn">{{ ambassador.name }}</div>

@@ -1,5 +1,7 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { PageHero } from '../../components/page-hero/page-hero';
+import { EventDto, EventsService, EventTypeApi } from '../../core/events.service';
+import { toDayHeading, toDayKey, toTimeLabel } from '../../core/congress-dates';
 
 type DotType = 'lecture' | 'workshop' | 'social';
 
@@ -16,114 +18,64 @@ interface Day {
   entries: Entry[];
 }
 
+function toDotType(type: EventTypeApi): DotType {
+  switch (type) {
+    case 'Lecture':
+      return 'lecture';
+    case 'Workshop':
+      return 'workshop';
+    default:
+      return 'social'; // Session, Congress
+  }
+}
+
 @Component({
   selector: 'app-timetable',
   imports: [PageHero],
   templateUrl: './timetable.html',
   styleUrl: './timetable.css'
 })
-export class Timetable {
-  readonly days: Day[] = [
-    {
-      id: 'day1',
-      label: 'Day 1 · Oct 14',
-      entries: [
-        {
-          time: '09:00',
-          title: 'Registration & welcome coffee',
-          dot: 'social',
-          meta: 'Check in and collect your badge. · Main lobby'
-        },
-        {
-          time: '09:30',
-          title: 'Opening keynote',
-          dot: 'lecture',
-          meta: 'The future of clinical research. · Main auditorium'
-        },
-        {
-          time: '11:00',
-          title: 'Research methods clinic',
-          dot: 'workshop',
-          meta: 'Workshop — structuring an abstract. · Room C1'
-        },
-        {
-          time: '14:00',
-          title: 'Suturing & wound closure',
-          dot: 'workshop',
-          meta: 'Hands-on workshop, surgical skills lab. · Room B2'
-        },
-        {
-          time: '18:00',
-          title: 'Welcome reception',
-          dot: 'social',
-          meta: 'Informal networking for all delegates. · Faculty courtyard'
-        }
-      ]
-    },
-    {
-      id: 'day2',
-      label: 'Day 2 · Oct 15',
-      entries: [
-        {
-          time: '09:00',
-          title: 'Research day — abstract presentations',
-          dot: 'lecture',
-          meta: 'Student research across all tracks. · Rooms A1, A2, A3'
-        },
-        {
-          time: '11:00',
-          title: 'Cardiology grand round',
-          dot: 'lecture',
-          meta: 'Case-based lecture and discussion. · Main auditorium'
-        },
-        {
-          time: '14:00',
-          title: 'Point-of-care ultrasound',
-          dot: 'workshop',
-          meta: 'Hands-on workshop, skills lab. · Room B3'
-        },
-        {
-          time: '17:00',
-          title: 'Patient lecture',
-          dot: 'lecture',
-          meta: 'Living with chronic illness. · Room A1'
-        }
-      ]
-    },
-    {
-      id: 'day3',
-      label: 'Day 3 · Oct 16',
-      entries: [
-        {
-          time: '09:00',
-          title: 'Emergency simulation',
-          dot: 'workshop',
-          meta: 'Simulated trauma scenario & debrief. · Simulation centre'
-        },
-        {
-          time: '12:00',
-          title: 'Meet the expert sessions',
-          dot: 'lecture',
-          meta: 'Small-group conversations with faculty. · Rooms A1–A3'
-        },
-        {
-          time: '19:00',
-          title: 'Closing keynote & awards',
-          dot: 'social',
-          meta: 'Congress highlights and awards ceremony. · Main auditorium'
-        },
-        {
-          time: '20:30',
-          title: 'Closing gala',
-          dot: 'social',
-          meta: 'An evening of celebration to close the congress. · Faculty courtyard'
-        }
-      ]
-    }
-  ];
+export class Timetable implements OnInit {
+  private readonly eventsService = inject(EventsService);
 
-  readonly activeDayId = signal(this.days[0].id);
-  readonly activeDay = computed(() => this.days.find((d) => d.id === this.activeDayId())!);
+  readonly days = signal<Day[]>([]);
+  readonly activeDayId = signal<string | null>(null);
+  readonly activeDay = computed(
+    () => this.days().find((d) => d.id === this.activeDayId()) ?? null
+  );
+
+  ngOnInit(): void {
+    this.eventsService.getEvents().subscribe({
+      next: (events) => this.buildDays(events),
+      error: (err) => console.error('Failed to load timetable', err)
+    });
+  }
+
+  private buildDays(events: EventDto[]): void {
+    const sorted = [...events].sort((a, b) => a.startsAtUtc.localeCompare(b.startsAtUtc));
+    const dayMap = new Map<string, Day>();
+
+    for (const e of sorted) {
+      const key = toDayKey(e.startsAtUtc);
+      let day = dayMap.get(key);
+      if (!day) {
+        day = { id: key, label: toDayHeading(e.startsAtUtc), entries: [] };
+        dayMap.set(key, day);
+      }
+      day.entries.push({
+        time: toTimeLabel(e.startsAtUtc),
+        title: e.title,
+        dot: toDotType(e.type),
+        meta: `${e.summary ?? ''} · ${e.room ?? ''}`
+      });
+    }
+
+    const days = Array.from(dayMap.values());
+    this.days.set(days);
+    if (days.length > 0) {
+      this.activeDayId.set(days[0].id);
+    }
+  }
 
   selectDay(id: string): void {
     this.activeDayId.set(id);

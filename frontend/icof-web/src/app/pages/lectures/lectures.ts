@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { PageHero } from '../../components/page-hero/page-hero';
+import { EventDto, EventsService } from '../../core/events.service';
+import { toDayLabel, toTimeLabel } from '../../core/congress-dates';
 
 interface LectureEntry {
   title: string;
@@ -9,48 +11,31 @@ interface LectureEntry {
   room: string;
 }
 
+function toLectureEntry(e: EventDto): LectureEntry {
+  return {
+    title: e.title,
+    description: e.summary ?? '',
+    day: toDayLabel(e.startsAtUtc),
+    time: toTimeLabel(e.startsAtUtc),
+    room: e.room ?? ''
+  };
+}
+
 @Component({
   selector: 'app-lectures',
   imports: [PageHero],
   templateUrl: './lectures.html',
   styleUrl: './lectures.css'
 })
-export class Lectures {
-  readonly lectures: LectureEntry[] = [
-    {
-      title: 'Opening keynote',
-      description: 'The future of clinical research — an opening address setting the tone for the congress.',
-      day: 'Day 1',
-      time: '09:30',
-      room: 'Main auditorium'
-    },
-    {
-      title: 'Research day — abstract presentations',
-      description: 'Student research presented across all tracks, reviewed live by the scientific committee.',
-      day: 'Day 2',
-      time: '09:00',
-      room: 'Rooms A1, A2, A3'
-    },
-    {
-      title: 'Cardiology grand round',
-      description: 'A case-based lecture and open discussion led by the cardiology track faculty.',
-      day: 'Day 2',
-      time: '11:00',
-      room: 'Main auditorium'
-    },
-    {
-      title: 'Patient lecture',
-      description: 'Living with chronic illness — a patient perspective session on long-term care.',
-      day: 'Day 2',
-      time: '17:00',
-      room: 'Room A1'
-    },
-    {
-      title: 'Meet the expert sessions',
-      description: 'Small-group conversations with faculty across specialties — no registration required.',
-      day: 'Day 3',
-      time: '12:00',
-      room: 'Rooms A1–A3'
-    }
-  ];
+export class Lectures implements OnInit {
+  private readonly eventsService = inject(EventsService);
+
+  readonly lectures = signal<LectureEntry[]>([]);
+
+  ngOnInit(): void {
+    this.eventsService.getEvents('Lecture').subscribe({
+      next: (events) => this.lectures.set(events.map(toLectureEntry)),
+      error: (err) => console.error('Failed to load lectures', err)
+    });
+  }
 }

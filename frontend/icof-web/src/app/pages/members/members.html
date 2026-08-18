@@ -3,17 +3,18 @@
 
 <section class="section">
   <div class="cat-pill-row">
-    @for (group of groups; track group.id) {
+    @for (group of groups(); track group.id) {
     <button class="cat-pill" [class.active]="group.id === activeGroupId()" (click)="selectGroup(group.id)">
       <span class="cp-num">{{ group.num }}</span>{{ group.label }}
     </button>
     }
   </div>
 
+  @if (activeGroup(); as group) {
   <div class="cat-panel active">
     <div class="cat-scene">
-      <h3>{{ activeGroup().label }}</h3>
-      <p>{{ activeGroup().blurb }}</p>
+      <h3>{{ group.label }}</h3>
+      <p>{{ group.blurb }}</p>
     </div>
 
     <div class="composite">
@@ -22,14 +23,14 @@
 
         <span class="composite-dot">•</span>
 
-        <h2>{{ activeGroup().label }}</h2>
+        <h2>{{ group.label }}</h2>
 
         <span class="composite-year">2027</span>
 
         <div class="crule"></div>
       </div>
       <div class="composite-grid">
-        @for (person of activeGroup().people; track person.name) {
+        @for (person of group.people; track person.name) {
         <button class="composite-cell" (click)="openPerson(person)">
           <div class="composite-photo">
 
@@ -47,6 +48,7 @@
       </div>
     </div>
   </div>
+  }
 </section>
 
 @if (selectedPerson(); as person) {

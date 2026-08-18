@@ -1,11 +1,13 @@
-import { Component, HostListener, signal } from '@angular/core';
+import { Component, HostListener, OnInit, inject, signal } from '@angular/core';
 import { PageHero } from '../../components/page-hero/page-hero';
+import { PeopleService } from '../../core/people.service';
 
 interface Ambassador {
   name: string;
   country: string;
   bio: string;
   initial: string;
+  image?: string;
 }
 
 @Component({
@@ -14,59 +16,28 @@ interface Ambassador {
   templateUrl: './ambassadors.html',
   styleUrl: './ambassadors.css'
 })
-export class Ambassadors {
-  readonly ambassadors: Ambassador[] = [
-    {
-      name: 'Elena Petkovska',
-      country: 'North Macedonia',
-      bio: 'Coordinates the host-faculty delegation and helps first-time delegates find their way around the venue.',
-      initial: 'E'
-    },
-    {
-      name: 'Marko Jovanović',
-      country: 'Serbia',
-      bio: 'Promotes ICOF at the Belgrade Faculty of Medicine and organises the travelling delegate group.',
-      initial: 'M'
-    },
-    {
-      name: 'Yana Dimitrova',
-      country: 'Bulgaria',
-      bio: 'Runs delegate recruitment in Sofia and Plovdiv, and liaises with the scientific committee on abstracts.',
-      initial: 'Y'
-    },
-    {
-      name: 'Dimitris Papadopoulos',
-      country: 'Greece',
-      bio: 'Builds partnerships with Greek medical faculties and coordinates joint research submissions.',
-      initial: 'D'
-    },
-    {
-      name: 'Erisa Hoxha',
-      country: 'Albania',
-      bio: 'Leads outreach in Tirana and supports Albanian delegates with travel and accommodation questions.',
-      initial: 'E'
-    },
-    {
-      name: 'Blerta Krasniqi',
-      country: 'Kosovo',
-      bio: 'Coordinates the Pristina delegate group and represents ICOF at regional student conferences.',
-      initial: 'B'
-    },
-    {
-      name: 'Andrei Popescu',
-      country: 'Romania',
-      bio: 'Organises the Bucharest and Cluj delegations and helps first-year students prepare their first abstract.',
-      initial: 'A'
-    },
-    {
-      name: 'Ivana Kovač',
-      country: 'Croatia',
-      bio: 'Runs the Zagreb ambassador network and coordinates joint workshops with visiting faculty.',
-      initial: 'I'
-    }
-  ];
+export class Ambassadors implements OnInit {
+  private readonly peopleService = inject(PeopleService);
 
+  readonly ambassadors = signal<Ambassador[]>([]);
   readonly selectedAmbassador = signal<Ambassador | null>(null);
+
+  ngOnInit(): void {
+    this.peopleService.getGroups('AmbassadorGroup').subscribe({
+      next: (groups) => {
+        const people = groups.flatMap((g) => g.members).map((m) => ({
+          name: m.fullName,
+          // RoleTitle carries the country for ambassadors (e.g. "Serbia").
+          country: m.roleTitle ?? '',
+          bio: m.bio ?? m.shortBio ?? '',
+          initial: m.fullName.charAt(0).toUpperCase(),
+          image: m.photoUrl ?? undefined
+        }));
+        this.ambassadors.set(people);
+      },
+      error: (err) => console.error('Failed to load ambassadors', err)
+    });
+  }
 
   open(ambassador: Ambassador): void {
     this.selectedAmbassador.set(ambassador);
