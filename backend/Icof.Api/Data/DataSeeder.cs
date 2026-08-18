@@ -1,5 +1,5 @@
-using System.Text;
 using Icof.Api.Entities;
+using Icof.Api.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace Icof.Api.Data
@@ -39,85 +39,22 @@ namespace Icof.Api.Data
                 Id = Guid.NewGuid(),
                 Type = type,
                 Name = name,
-                Slug = Slugify(name),
+                Slug = SlugHelper.Slugify(name),
                 Description = description,
                 DisplayOrder = order,
                 IsPublished = true,
                 CreatedAtUtc = now
             };
 
-            TeamMember Member(string fullName, string? roleTitle, string? bio, int order) => new()
-            {
-                Id = Guid.NewGuid(),
-                FullName = fullName,
-                Slug = Slugify(fullName),
-                RoleTitle = roleTitle,
-                Bio = bio,
-                DisplayOrder = order,
-                IsPublished = true,
-                CreatedAtUtc = now
-            };
+            // Fixed, minimal set of real categories — no placeholder people seeded under them.
+            // Real people go in one at a time via POST /api/team-members.
+            var medicalStudents = Group(PeopleGroupType.MemberGroup, "Medical students", "The medical students behind this year's congress.", 0);
+            var professors = Group(PeopleGroupType.MemberGroup, "Professors", "Faculty advisors supporting the congress.", 1);
+            var itTeam = Group(PeopleGroupType.MemberGroup, "IT team", "Runs registration systems, the website and on-site technical support.", 2);
+            var socialTeam = Group(PeopleGroupType.MemberGroup, "Social team", "Organises the receptions, ceremonies and social side of the congress.", 3);
+            var ambassadors = Group(PeopleGroupType.AmbassadorGroup, "Ambassadors", "Our representatives keeping partner faculties connected to ICOF year-round.", 0);
 
-            var studentTeam = Group(
-                PeopleGroupType.MemberGroup,
-                "Student medical team",
-                "The students organising this year's congress — programme, logistics, communications and delegate care.",
-                0);
-            studentTeam.Members.Add(Member("Marija Stojanova", "Student medical team", "4th year medicine — leads delegate communications and the daily on-site schedule.", 0));
-            studentTeam.Members.Add(Member("Petar Angelov", "Student medical team", "6th year medicine — coordinates volunteers and room logistics across all three days.", 1));
-            studentTeam.Members.Add(Member("Ivana Trpkova", "Student medical team", "3rd year medicine — manages registration desk and delegate check-in.", 2));
-            studentTeam.Members.Add(Member("Aleksandar Nikolov", "Student medical team", "5th year medicine — runs the workshop equipment and technical setup.", 3));
-
-            var professors = Group(
-                PeopleGroupType.MemberGroup,
-                "Professors",
-                "Faculty advisors who guide the academic direction of the congress and support the scientific programme.",
-                1);
-            professors.Members.Add(Member("Prof. Biljana Trajkova", "Faculty advisor", "Senior lecturer in cardiology and long-standing academic advisor to ICOF.", 0));
-            professors.Members.Add(Member("Prof. Goran Miloševski", "Faculty advisor", "Dean's office liaison, oversees faculty-level approvals and venue access.", 1));
-            professors.Members.Add(Member("Prof. Ivan Cvetanovski", "Research committee", "Chairs the abstract review board for the annual research day.", 2));
-
-            var scientificTeam = Group(
-                PeopleGroupType.MemberGroup,
-                "Scientific team",
-                "Reviews abstracts, builds the academic programme and briefs speakers ahead of each session.",
-                2);
-            scientificTeam.Members.Add(Member("Dr. Elena Georgieva", "Cardiology track lead", "Reviews cardiology abstracts and chairs the cardiology session.", 0));
-            scientificTeam.Members.Add(Member("Dr. Filip Ristovski", "Neurology track lead", "Coordinates the neurology lecture block and speaker briefings.", 1));
-            scientificTeam.Members.Add(Member("Dr. Sara Kovačevska", "Public health track lead", "Oversees the public health and research day submissions.", 2));
-
-            var financeIt = Group(
-                PeopleGroupType.MemberGroup,
-                "Finance & IT",
-                "Keeps the congress funded, budgeted and technically running — from sponsorship invoicing to the website itself.",
-                3);
-            financeIt.Members.Add(Member("Bojan Stefanovski", "Finance lead", "Manages the congress budget, invoicing and sponsor payments.", 0));
-            financeIt.Members.Add(Member("Kristina Naumova", "IT & systems", "Runs registration systems, the website and on-site technical support.", 1));
-
-            var contributors = Group(
-                PeopleGroupType.MemberGroup,
-                "Main contributors",
-                "Long-standing volunteers and former organisers who continue to support ICOF year over year.",
-                4);
-            contributors.Members.Add(Member("Ana Petrovska", "President", "Final-year medical student leading this year's organising committee.", 0));
-            contributors.Members.Add(Member("Darko Ilievski", "Scientific committee", "Oversees abstract review and the research day programme.", 1));
-            contributors.Members.Add(Member("Nina Đorđević", "Alumni advisor", "Former president, now advising the current committee.", 2));
-
-            var ambassadors = Group(
-                PeopleGroupType.AmbassadorGroup,
-                "International Ambassadors",
-                "Our international representatives — one per partner faculty, keeping their home institution connected to ICOF year-round.",
-                0);
-            ambassadors.Members.Add(Member("Elena Petkovska", "North Macedonia", "Coordinates the host-faculty delegation and helps first-time delegates find their way around the venue.", 0));
-            ambassadors.Members.Add(Member("Marko Jovanović", "Serbia", "Promotes ICOF at the Belgrade Faculty of Medicine and organises the travelling delegate group.", 1));
-            ambassadors.Members.Add(Member("Yana Dimitrova", "Bulgaria", "Runs delegate recruitment in Sofia and Plovdiv, and liaises with the scientific committee on abstracts.", 2));
-            ambassadors.Members.Add(Member("Dimitris Papadopoulos", "Greece", "Builds partnerships with Greek medical faculties and coordinates joint research submissions.", 3));
-            ambassadors.Members.Add(Member("Erisa Hoxha", "Albania", "Leads outreach in Tirana and supports Albanian delegates with travel and accommodation questions.", 4));
-            ambassadors.Members.Add(Member("Blerta Krasniqi", "Kosovo", "Coordinates the Pristina delegate group and represents ICOF at regional student conferences.", 5));
-            ambassadors.Members.Add(Member("Andrei Popescu", "Romania", "Organises the Bucharest and Cluj delegations and helps first-year students prepare their first abstract.", 6));
-            ambassadors.Members.Add(Member("Ivana Kovač", "Croatia", "Runs the Zagreb ambassador network and coordinates joint workshops with visiting faculty.", 7));
-
-            db.PeopleGroups.AddRange(studentTeam, professors, scientificTeam, financeIt, contributors, ambassadors);
+            db.PeopleGroups.AddRange(medicalStudents, professors, itTeam, socialTeam, ambassadors);
 
             await db.SaveChangesAsync(cancellationToken);
         }
@@ -163,7 +100,7 @@ namespace Icof.Api.Data
                 {
                     Id = Guid.NewGuid(),
                     Title = title,
-                    Slug = Slugify(title),
+                    Slug = SlugHelper.Slugify(title),
                     Summary = summary,
                     Room = room,
                     Location = venue,
@@ -205,35 +142,6 @@ namespace Icof.Api.Data
             db.Events.AddRange(events);
 
             await db.SaveChangesAsync(cancellationToken);
-        }
-
-        private static string Slugify(string value)
-        {
-            var normalized = value
-                .Replace("č", "c").Replace("Č", "C")
-                .Replace("ć", "c").Replace("Ć", "C")
-                .Replace("š", "s").Replace("Š", "S")
-                .Replace("ž", "z").Replace("Ž", "Z")
-                .Replace("đ", "dj").Replace("Đ", "Dj");
-
-            var builder = new StringBuilder();
-            var lastWasHyphen = false;
-
-            foreach (var c in normalized.ToLowerInvariant())
-            {
-                if (char.IsLetterOrDigit(c))
-                {
-                    builder.Append(c);
-                    lastWasHyphen = false;
-                }
-                else if (!lastWasHyphen && builder.Length > 0)
-                {
-                    builder.Append('-');
-                    lastWasHyphen = true;
-                }
-            }
-
-            return builder.ToString().TrimEnd('-');
         }
     }
 }

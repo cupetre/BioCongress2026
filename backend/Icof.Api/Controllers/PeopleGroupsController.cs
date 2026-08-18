@@ -2,6 +2,7 @@ using Icof.Api.Data;
 using Icof.Api.DTOs;
 using Icof.Api.Entities;
 using Icof.Api.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -59,5 +60,60 @@ public class PeopleGroupsController : ControllerBase
         }).ToList();
 
         return Ok(result);
+    }
+
+    // TODO: restrict to an Admin role once roles are seeded/assigned — [Authorize] just
+    // requires *some* logged-in user for now, same interim approach as ImageController.
+    [Authorize]
+    [HttpPost]
+    public async Task<ActionResult<PeopleGroupDto>> CreateGroup(
+        [FromBody] CreatePeopleGroupRequest request,
+        CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(request.Name))
+        {
+            return BadRequest("Name is required.");
+        }
+
+        var displayOrder = request.DisplayOrder
+            ?? (await _db.PeopleGroups
+                .Where(g => g.Type == request.Type)
+                .Select(g => (int?)g.DisplayOrder)
+                .MaxAsync(cancellationToken) ?? -1) + 1;
+
+        var group = new PeopleGroup
+        {
+            Id = Guid.NewGuid(),
+            Type = request.Type,
+            Name = request.Name.Trim(),
+            Slug = SlugHelper.Slugify(request.Name),
+            Description = request.Description,
+            DisplayOrder = displayOrder,
+            IsPublished = true,
+            CreatedAtUtc = DateTimeOffset.UtcNow
+        };
+
+        _db.PeopleGroups.Add(group);
+
+        try
+        {
+            await _db.SaveChangesAsync(cancellationToken);
+        }
+        catch (DbUpdateException)
+        {
+            return Conflict($"A group with slug \"{group.Slug}\" already exists — try a more specific name.");
+        }
+
+        var dto = new PeopleGroupDto
+        {
+            Id = group.Id,
+            Slug = group.Slug,
+            Name = group.Name,
+            Description = group.Description,
+            DisplayOrder = group.DisplayOrder,
+            Members = new List<TeamMemberDto>()
+        };
+
+        return CreatedAtAction(nameof(GetGroups), new { type = group.Type }, dto);
     }
 }
