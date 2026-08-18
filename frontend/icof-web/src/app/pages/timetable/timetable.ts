@@ -20,7 +20,7 @@ interface Day {
   selector: 'app-timetable',
   imports: [PageHero],
   templateUrl: './timetable.html',
-  styleUrl: './timetable.css'
+  styleUrl: './timetable.css',
 })
 export class Timetable {
   readonly days: Day[] = [
@@ -32,33 +32,33 @@ export class Timetable {
           time: '09:00',
           title: 'Registration & welcome coffee',
           dot: 'social',
-          meta: 'Check in and collect your badge. · Main lobby'
+          meta: 'Check in and collect your badge. · Main lobby',
         },
         {
           time: '09:30',
           title: 'Opening keynote',
           dot: 'lecture',
-          meta: 'The future of clinical research. · Main auditorium'
+          meta: 'The future of clinical research. · Main auditorium',
         },
         {
           time: '11:00',
           title: 'Research methods clinic',
           dot: 'workshop',
-          meta: 'Workshop — structuring an abstract. · Room C1'
+          meta: 'Workshop — structuring an abstract. · Room C1',
         },
         {
           time: '14:00',
           title: 'Suturing & wound closure',
           dot: 'workshop',
-          meta: 'Hands-on workshop, surgical skills lab. · Room B2'
+          meta: 'Hands-on workshop, surgical skills lab. · Room B2',
         },
         {
           time: '18:00',
           title: 'Welcome reception',
           dot: 'social',
-          meta: 'Informal networking for all delegates. · Faculty courtyard'
-        }
-      ]
+          meta: 'Informal networking for all delegates. · Faculty courtyard',
+        },
+      ],
     },
     {
       id: 'day2',
@@ -68,27 +68,27 @@ export class Timetable {
           time: '09:00',
           title: 'Research day — abstract presentations',
           dot: 'lecture',
-          meta: 'Student research across all tracks. · Rooms A1, A2, A3'
+          meta: 'Student research across all tracks. · Rooms A1, A2, A3',
         },
         {
           time: '11:00',
           title: 'Cardiology grand round',
           dot: 'lecture',
-          meta: 'Case-based lecture and discussion. · Main auditorium'
+          meta: 'Case-based lecture and discussion. · Main auditorium',
         },
         {
           time: '14:00',
           title: 'Point-of-care ultrasound',
           dot: 'workshop',
-          meta: 'Hands-on workshop, skills lab. · Room B3'
+          meta: 'Hands-on workshop, skills lab. · Room B3',
         },
         {
           time: '17:00',
           title: 'Patient lecture',
           dot: 'lecture',
-          meta: 'Living with chronic illness. · Room A1'
-        }
-      ]
+          meta: 'Living with chronic illness. · Room A1',
+        },
+      ],
     },
     {
       id: 'day3',
@@ -98,28 +98,28 @@ export class Timetable {
           time: '09:00',
           title: 'Emergency simulation',
           dot: 'workshop',
-          meta: 'Simulated trauma scenario & debrief. · Simulation centre'
+          meta: 'Simulated trauma scenario & debrief. · Simulation centre',
         },
         {
           time: '12:00',
           title: 'Meet the expert sessions',
           dot: 'lecture',
-          meta: 'Small-group conversations with faculty. · Rooms A1–A3'
+          meta: 'Small-group conversations with faculty. · Rooms A1–A3',
         },
         {
           time: '19:00',
           title: 'Closing keynote & awards',
           dot: 'social',
-          meta: 'Congress highlights and awards ceremony. · Main auditorium'
+          meta: 'Congress highlights and awards ceremony. · Main auditorium',
         },
         {
           time: '20:30',
           title: 'Closing gala',
           dot: 'social',
-          meta: 'An evening of celebration to close the congress. · Faculty courtyard'
-        }
-      ]
-    }
+          meta: 'An evening of celebration to close the congress. · Faculty courtyard',
+        },
+      ],
+    },
   ];
 
   readonly activeDayId = signal(this.days[0].id);

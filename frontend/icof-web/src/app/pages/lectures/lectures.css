@@ -1,13 +1,13 @@
 .section {
-  padding: 96px var(--page-margin);
+  padding: 64px var(--page-margin);
 }
 
 .timeline {
-  max-width: 660px;
+  max-width: 70%;
   margin: 0 auto;
   position: relative;
   padding-left: 32px;
-  border-left: 2px solid rgba(20, 33, 46, .16);
+  border-left: 4px solid rgba(20, 33, 46, .16);
 }
 
 .timeline-item {
@@ -34,7 +34,7 @@
 .timeline-item .time {
   font-family: var(--font-mono);
   font-weight: 500;
-  font-size: 12.5px;
+  font-size: 20px;
   letter-spacing: .04em;
   color: var(--red);
   margin-bottom: 7px;
@@ -43,13 +43,13 @@
 .timeline-item h4 {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 22px;
+  font-size: 48px;
   color: var(--navy);
   margin-bottom: 7px;
 }
 
 .timeline-item p {
-  font-size: 14px;
+  font-size: 18px;
   color: rgba(20, 33, 46, .65);
   line-height: 1.7;
 }
@@ -60,7 +60,7 @@
   margin-top: 10px;
   flex-wrap: wrap;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: .04em;
   text-transform: uppercase;
   color: rgba(20, 33, 46, .5);

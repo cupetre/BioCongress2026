@@ -7,8 +7,22 @@
 
 <section class="section">
   <div class="notebook-outer">
+
+    <div class="nb-tabs-top">
+      @for (day of days; track day.id) {
+        <button
+          class="nb-tab-top"
+          [class.active]="day.id === activeDayId()"
+          (click)="selectDay(day.id)"
+        >
+          {{ day.label }}
+        </button>
+      }
+    </div>
+
     <div class="notebook">
       <div class="notebook-pages">
+
         <div class="nb-page left">
           <div class="nb-title">Your three days, mapped out</div>
           <div class="nb-sub">A quick legend before you dive in.</div>
@@ -27,29 +41,23 @@
         </div>
 
         <div class="nb-page right">
-          <div class="nb-tabs">
+          <div class="nb-panel-wrap">
             @for (day of days; track day.id) {
-              <button
-                class="nb-tab"
-                [class.active]="day.id === activeDayId()"
-                (click)="selectDay(day.id)"
-              >
-                {{ day.label }}
-              </button>
-            }
-          </div>
-
-          <div class="nb-panel active">
-            @for (entry of activeDay().entries; track entry.time) {
-              <div class="page-entry">
-                <span class="pe-time">{{ entry.time }}</span>
-                <span class="pe-title"><span [class]="'dot dot-' + entry.dot"></span>{{ entry.title }}</span>
-                <div class="pe-meta">{{ entry.meta }}</div>
+              <div class="nb-panel" [class.active]="day.id === activeDayId()">
+                @for (entry of day.entries; track entry.time) {
+                  <div class="page-entry">
+                    <span class="pe-time">{{ entry.time }}</span>
+                    <span class="pe-title"><span [class]="'dot dot-' + entry.dot"></span>{{ entry.title }}</span>
+                    <div class="pe-meta">{{ entry.meta }}</div>
+                  </div>
+                }
               </div>
             }
           </div>
         </div>
+
       </div>
     </div>
+
   </div>
 </section>
