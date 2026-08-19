@@ -32,5 +32,16 @@ services:
       postgres:
         condition: service_healthy
 
+  web:
+    build:
+      context: ./frontend/icof-web
+      dockerfile: Dockerfile
+    environment:
+      PORT: "4000"
+    ports:
+      - "4000:4000"
+    depends_on:
+      - api
+
 volumes:
   postgres_data:

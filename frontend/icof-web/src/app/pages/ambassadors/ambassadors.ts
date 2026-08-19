@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit, inject, signal } from '@angular/core';
-import { PageHero } from '../../components/page-hero/page-hero';
+import { RouterLink } from '@angular/router';
 import { PeopleService } from '../../core/people.service';
 
 interface Ambassador {
@@ -12,7 +12,7 @@ interface Ambassador {
 
 @Component({
   selector: 'app-ambassadors',
-  imports: [PageHero],
+  imports: [RouterLink],
   templateUrl: './ambassadors.html',
   styleUrl: './ambassadors.css'
 })

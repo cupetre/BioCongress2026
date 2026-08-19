@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit, computed, inject, signal } from '@angular/core';
-import { PageHero } from '../../components/page-hero/page-hero';
+import { RouterLink } from '@angular/router';
 import { PeopleService } from '../../core/people.service';
 
 interface Person {
@@ -20,7 +20,7 @@ interface MemberGroup {
 
 @Component({
   selector: 'app-members',
-  imports: [PageHero],
+  imports: [RouterLink],
   templateUrl: './members.html',
   styleUrl: './members.css'
 })

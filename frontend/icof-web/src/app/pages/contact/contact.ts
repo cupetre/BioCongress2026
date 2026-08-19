@@ -1,16 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import {GoogleMapsModule} from '@angular/google-maps';
 
 type SubmitStatus = 'idle' | 'submitting' | 'success' | 'error';
 
-
-
 @Component({
   selector: 'app-contact',
-  imports: [RouterLink, ReactiveFormsModule ,GoogleMapsModule ],
-
+  imports: [RouterLink, ReactiveFormsModule],
   templateUrl: './contact.html',
   styleUrl: './contact.css'
 })

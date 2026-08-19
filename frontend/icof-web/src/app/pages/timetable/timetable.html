@@ -9,7 +9,7 @@
   <div class="notebook-outer">
 
     <div class="nb-tabs-top">
-      @for (day of days; track day.id) {
+      @for (day of days(); track day.id) {
         <button
           class="nb-tab-top"
           [class.active]="day.id === activeDayId()"

@@ -44,8 +44,10 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(FrontendCorsPolicy, policy =>
     {
-        // Angular dev server. Add the deployed frontend origin here once that exists.
-        policy.WithOrigins("http://localhost:4200")
+        policy.WithOrigins(
+                "http://localhost:4200", // Angular dev server
+                "http://78.46.249.178:4000" // Hetzner preview — remove once Azure replaces this
+            )
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
