@@ -101,7 +101,7 @@
 /* ---- Light variant ---- */
 
 .page-hero.light {
-  background: var(--paper);
+  background: white;
 }
 
 .page-hero.light::before {
