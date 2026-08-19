@@ -7,8 +7,22 @@
 
 <section class="section">
   <div class="notebook-outer">
+
+    <div class="nb-tabs-top">
+      @for (day of days; track day.id) {
+        <button
+          class="nb-tab-top"
+          [class.active]="day.id === activeDayId()"
+          (click)="selectDay(day.id)"
+        >
+          {{ day.label }}
+        </button>
+      }
+    </div>
+
     <div class="notebook">
       <div class="notebook-pages">
+
         <div class="nb-page left">
           <div class="nb-title">Your three days, mapped out</div>
           <div class="nb-sub">A quick legend before you dive in.</div>
@@ -51,7 +65,9 @@
           </div>
           }
         </div>
+
       </div>
     </div>
+
   </div>
 </section>

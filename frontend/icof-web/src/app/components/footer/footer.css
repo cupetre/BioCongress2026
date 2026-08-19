@@ -14,7 +14,7 @@ footer {
   font-size: 45px;
 }
 
-.logo-circle {
+.logo img {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -43,7 +43,7 @@ footer {
 
   margin-top: 20px;
 
-  font-size: 12px;
+  font-size: 16px;
 
   line-height: 1.7;
 }

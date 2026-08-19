@@ -58,24 +58,8 @@
           <input id="c-phone" type="tel" formControlName="phone" placeholder="+389 …">
         </div>
 
-        <div class="field">
-          <label for="c-location">Location</label>
-          <input id="c-location" type="text" formControlName="location" placeholder="City, country">
-        </div>
 
-        <div class="field">
-          <label for="c-msg">Message</label>
-          <textarea
-            id="c-msg"
-            rows="5"
-            formControlName="message"
-            placeholder="Tell us a little about it"
-            [class.invalid]="isInvalid('message')"
-          ></textarea>
-          @if (isInvalid('message')) {
-            <span class="field-error">Tell us a little more — at least 10 characters.</span>
-          }
-        </div>
+
 
         <button class="btn-primary" type="submit" [disabled]="status() === 'submitting'">
           {{ status() === 'submitting' ? 'Sending…' : 'Send' }}
@@ -93,4 +77,5 @@
       title="Faculty of Medicine, Skopje location"
     ></iframe>
   </div>
+
 </section>

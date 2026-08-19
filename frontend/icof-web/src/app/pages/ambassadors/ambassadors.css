@@ -1,3 +1,62 @@
+.newspaper {
+  background: var(--paper);
+}
+
+.breadcrumb {
+  max-width: 720px;
+  margin: 0 auto 22px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: .05em;
+  color: rgba(20, 33, 46, .45);
+}
+
+.breadcrumb a {
+  color: rgba(20, 33, 46, .7);
+  border-bottom: 1px solid transparent;
+}
+
+.breadcrumb a:hover {
+  border-bottom-color: var(--red);
+}
+
+.np-masthead {
+  text-align: center;
+  padding: 76px var(--page-margin) 42px;
+  border-bottom: 3px double rgba(20, 33, 46, .32);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.np-masthead .np-kicker {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 12px;
+}
+
+.np-masthead h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(38px, 5vw, 64px);
+  color: var(--navy);
+  letter-spacing: -.01em;
+}
+
+.np-masthead .np-sub {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 16px;
+  color: rgba(20, 33, 46, .55);
+  margin-top: 10px;
+}
+
+
+
+
 .team-section {
   background: var(--navy);
   padding: 96px var(--page-margin);

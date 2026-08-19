@@ -33,7 +33,7 @@ function toDotType(type: EventTypeApi): DotType {
   selector: 'app-timetable',
   imports: [PageHero],
   templateUrl: './timetable.html',
-  styleUrl: './timetable.css'
+  styleUrl: './timetable.css',
 })
 export class Timetable implements OnInit {
   private readonly eventsService = inject(EventsService);

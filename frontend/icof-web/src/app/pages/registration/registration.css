@@ -19,7 +19,7 @@
 .field label {
   display: block;
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 16px;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: rgba(20, 33, 46, .5);
@@ -34,7 +34,7 @@
   background: transparent;
   padding: 8px 2px;
   font-family: var(--font-sans);
-  font-size: 15px;
+  font-size: 18px;
   color: var(--navy);
   outline: none;
   transition: border-color .25s ease;
@@ -57,7 +57,7 @@
   display: block;
   margin-top: 6px;
   font-family: var(--font-sans);
-  font-size: 12px;
+  font-size: 14px;
   color: var(--red-light);
 }
 
@@ -71,7 +71,7 @@
 
 .sessions-label {
   font-family: var(--font-mono);
-  font-size: 10.5px;
+  font-size: 18px;
   letter-spacing: .08em;
   text-transform: uppercase;
   color: rgba(20, 33, 46, .5);
@@ -109,12 +109,12 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
 }
 
 .session-title {
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 20px;
   color: var(--navy);
 }
 
@@ -128,7 +128,7 @@
   display: inline-flex;
   align-items: center;
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: .08em;
   text-transform: uppercase;
   padding: 4px 11px;
@@ -159,7 +159,7 @@
   align-self: flex-start;
   font-family: var(--font-sans);
   font-weight: 600;
-  font-size: 13px;
+  font-size: 16px;
   padding: 13px 26px;
   border-radius: 2px;
   cursor: pointer;
@@ -188,14 +188,14 @@
 
 .form-success strong {
   font-family: var(--font-display);
-  font-size: 21px;
+  font-size: 40px;
   color: var(--navy);
   display: block;
   margin-bottom: 8px;
 }
 
 .form-success p {
-  font-size: 14px;
+  font-size: 24px;
   line-height: 1.7;
   color: rgba(20, 33, 46, .68);
   margin-bottom: 18px;
@@ -203,7 +203,7 @@
 
 .form-success .dismiss {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 20px;
   color: var(--red);
   background: none;
   border: none;
