@@ -23,6 +23,20 @@ export interface EventDto {
   displayOrder: number;
 }
 
+export interface EventPayload {
+  title: string;
+  summary?: string | null;
+  room?: string | null;
+  location?: string | null;
+  type: EventTypeApi;
+  status: EventStatusApi;
+  startsAtUtc: string;
+  capacity: number;
+  registeredCount: number;
+  isRegistrationEnabled: boolean;
+  isPublished?: boolean;
+}
+
 @Injectable({ providedIn: 'root' })
 export class EventsService {
   private readonly http = inject(HttpClient);
@@ -33,5 +47,13 @@ export class EventsService {
       params = params.set('type', type);
     }
     return this.http.get<EventDto[]>(`${API_BASE_URL}/api/events`, { params });
+  }
+
+  createEvent(payload: EventPayload): Observable<EventDto> {
+    return this.http.post<EventDto>(`${API_BASE_URL}/api/events`, payload);
+  }
+
+  updateEvent(id: string, payload: Partial<EventPayload>): Observable<EventDto> {
+    return this.http.patch<EventDto>(`${API_BASE_URL}/api/events/${id}`, payload);
   }
 }

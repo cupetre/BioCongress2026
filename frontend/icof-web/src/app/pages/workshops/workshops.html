@@ -6,5 +6,25 @@
 />
 
 <section class="section">
-  <app-item-list [items]="workshops()" />
+  @if (isAdmin()) {
+    <div class="admin-toolbar">
+      <button type="button" class="btn-add" (click)="openCreate()">+ Add workshop</button>
+    </div>
+  }
+
+  <app-item-list
+    [items]="workshops()"
+    [isAdmin]="isAdmin()"
+    (edit)="openEdit($event)"
+    (archive)="archive($event)"
+  />
 </section>
+
+@if (formState() !== 'closed') {
+  <app-admin-event-form
+    eventType="Workshop"
+    [editing]="editingEvent()"
+    (saved)="onSaved()"
+    (cancelled)="closeForm()"
+  />
+}

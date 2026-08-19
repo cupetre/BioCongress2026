@@ -1,8 +1,9 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 export type ItemStatus = 'open' | 'upcoming' | 'closed' | 'full';
 
 export interface ProgrammeItem {
+  id: string;
   title: string;
   description: string;
   day: string;
@@ -20,4 +21,8 @@ export interface ProgrammeItem {
 })
 export class ItemList {
   items = input.required<ProgrammeItem[]>();
+  isAdmin = input<boolean>(false);
+
+  edit = output<ProgrammeItem>();
+  archive = output<ProgrammeItem>();
 }

@@ -3,13 +3,21 @@ using Icof.Api.Entities;
 using Icof.Api.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' is not configured.");
 
-builder.Services.AddControllers();
+// Accept/emit enums as their string name (e.g. "Workshop", "Open") everywhere — request bodies
+// like CreateEventRequest.Type send strings from the frontend, and without this converter
+// System.Text.Json expects the numeric value instead and fails to bind, returning a 400.
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 builder.Services.AddScoped<IEventRegistrationService, EventRegistrationService>();

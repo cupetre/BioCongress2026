@@ -75,7 +75,7 @@
   font-family: Inter;
   font-weight: 800;
 
-  font-size: clamp(48px, 8vw, 128px);
+  font-size: clamp(48px, 8vw, 100px);
   color: var(--navy);
   line-height: 1.5;
   margin: 0 0 20px;
@@ -130,6 +130,75 @@
 
 .page-hero.light .breadcrumb a {
   color: var(--navy);
+}
+
+/* ---- Centered variant — restored original layout for About/Ambassadors/Members: a
+   centered title with a small subtitle underneath, instead of the big asymmetric hero. ---- */
+
+.page-hero.centered {
+  background: var(--paper);
+  padding: 72px var(--page-margin) 76px;
+}
+
+.page-hero.centered::before {
+  display: none;
+}
+
+.page-hero.centered .breadcrumb {
+  color: rgba(20, 33, 46, .4);
+}
+
+.page-hero.centered .breadcrumb a {
+  color: var(--navy);
+}
+
+.page-hero.centered .page-hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 680px;
+  margin: 28px auto 0;
+}
+
+.page-hero.centered .kicker {
+  grid-column: unset;
+  grid-row: unset;
+  justify-content: center;
+  text-align: center;
+  color: var(--red);
+  font-weight: 600;
+  font-size: 11px;
+  margin-bottom: 14px;
+}
+
+.page-hero.centered h1 {
+  grid-column: unset;
+  grid-row: unset;
+  align-self: center;
+
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(38px, 5.4vw, 68px);
+  color: var(--navy);
+  text-align: center;
+  line-height: 1.1;
+  margin: 0 0 16px;
+}
+
+.page-hero.centered p {
+  grid-column: unset;
+  grid-row: unset;
+
+  font-family: var(--font-sans);
+  font-size: 16.5px;
+  line-height: 1.7;
+  color: var(--navy);
+  opacity: .7;
+  text-align: center;
+  max-width: 560px;
+  border-top: none;
+  padding-top: 0;
+  margin: 0;
 }
 
 /* ---- Responsive: fold back to single column ---- */

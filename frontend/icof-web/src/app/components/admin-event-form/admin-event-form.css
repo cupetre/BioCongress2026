@@ -1,0 +1,155 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 24, 38, .72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 300;
+}
+
+.modal-box {
+  background: var(--paper);
+  max-width: 520px;
+  width: 100%;
+  padding: 40px;
+  position: relative;
+  border-radius: 2px;
+  max-height: 88vh;
+  overflow-y: auto;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 18px;
+  background: none;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 22px;
+  color: var(--navy);
+  cursor: pointer;
+  line-height: 1;
+}
+
+h3 {
+  font-family: var(--font-display);
+  font-size: 24px;
+  color: var(--navy);
+  margin: 0 0 26px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.field label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: rgba(20, 33, 46, .5);
+  margin-bottom: 8px;
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid rgba(20, 33, 46, .28);
+  background: transparent;
+  padding: 8px 2px;
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  color: var(--navy);
+  outline: none;
+  transition: border-color .25s ease;
+  resize: none;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus {
+  border-color: var(--red);
+}
+
+.field input.invalid {
+  border-color: var(--red-light);
+}
+
+.field-error {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  color: var(--red-light);
+}
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  color: var(--navy);
+  cursor: pointer;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.btn-ghost {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 13px;
+  padding: 12px 20px;
+  border-radius: 2px;
+  cursor: pointer;
+  border: 1px solid rgba(19, 39, 63, .3);
+  background: none;
+  color: var(--navy);
+}
+
+.btn-primary {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 13px;
+  padding: 13px 24px;
+  border-radius: 2px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: var(--red);
+  color: var(--cream);
+  transition: background .25s ease;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--red-light);
+}
+
+.btn-primary:disabled {
+  opacity: .55;
+  cursor: not-allowed;
+}
+
+@media (max-width: 560px) {
+  .field-row {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}

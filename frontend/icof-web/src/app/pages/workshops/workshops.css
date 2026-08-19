@@ -2,6 +2,30 @@
   padding: 96px var(--page-margin);
 }
 
+.admin-toolbar {
+  max-width: 900px;
+  margin: 0 auto 24px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-add {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 13px;
+  padding: 12px 22px;
+  border-radius: 2px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  background: var(--red);
+  color: var(--cream);
+  transition: background .25s ease;
+}
+
+.btn-add:hover {
+  background: var(--red-light);
+}
+
 @media (max-width: 900px) {
   .section {
     padding: 64px var(--page-margin);

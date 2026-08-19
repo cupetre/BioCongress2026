@@ -1,0 +1,78 @@
+<div class="modal-overlay" (click)="cancel()">
+  <div class="modal-box" (click)="$event.stopPropagation()">
+    <button class="modal-close" type="button" (click)="cancel()" aria-label="Close">×</button>
+
+    <h3>{{ editing() ? 'Edit event' : 'Add event' }}</h3>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="field">
+        <label for="ev-title">Title</label>
+        <input id="ev-title" type="text" formControlName="title" [class.invalid]="isInvalid('title')">
+        @if (isInvalid('title')) {
+          <span class="field-error">Title is required.</span>
+        }
+      </div>
+
+      <div class="field">
+        <label for="ev-summary">Summary</label>
+        <textarea id="ev-summary" rows="3" formControlName="summary" placeholder="Short teaser shown on the card"></textarea>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="ev-room">Room</label>
+          <input id="ev-room" type="text" formControlName="room">
+        </div>
+        <div class="field">
+          <label for="ev-location">Location</label>
+          <input id="ev-location" type="text" formControlName="location">
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="ev-starts">Starts at</label>
+          <input id="ev-starts" type="datetime-local" formControlName="startsAt" [class.invalid]="isInvalid('startsAt')">
+          @if (isInvalid('startsAt')) {
+            <span class="field-error">Pick a date and time.</span>
+          }
+        </div>
+        <div class="field">
+          <label for="ev-status">Status</label>
+          <select id="ev-status" formControlName="eventStatus">
+            @for (s of statuses; track s) {
+              <option [value]="s">{{ s }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="ev-capacity">Capacity</label>
+          <input id="ev-capacity" type="number" min="0" formControlName="capacity">
+        </div>
+        <div class="field">
+          <label for="ev-registered">Registered</label>
+          <input id="ev-registered" type="number" min="0" formControlName="registeredCount">
+        </div>
+      </div>
+
+      <label class="checkbox-field">
+        <input type="checkbox" formControlName="isRegistrationEnabled">
+        Registration open to delegates
+      </label>
+
+      @if (status() === 'error') {
+        <span class="field-error">Could not save — check the fields and try again.</span>
+      }
+
+      <div class="form-actions">
+        <button type="button" class="btn-ghost" (click)="cancel()">Cancel</button>
+        <button type="submit" class="btn-primary" [disabled]="status() === 'submitting'">
+          {{ status() === 'submitting' ? 'Saving…' : 'Save' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

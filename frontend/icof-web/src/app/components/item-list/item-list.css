@@ -82,6 +82,39 @@
   border-color: rgba(76, 7, 14, .45);
 }
 
+.admin-actions {
+  display: flex;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.admin-btn {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  background: none;
+  border: 1px solid rgba(19, 39, 63, .3);
+  color: var(--navy);
+  padding: 7px 13px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease;
+}
+
+.admin-btn:hover {
+  background: rgba(19, 39, 63, .06);
+}
+
+.admin-btn-archive {
+  border-color: rgba(76, 7, 14, .35);
+  color: var(--red);
+}
+
+.admin-btn-archive:hover {
+  background: rgba(76, 7, 14, .06);
+}
+
 @media (max-width: 900px) {
   .item-card {
     padding: 22px 20px;

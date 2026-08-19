@@ -37,3 +37,19 @@ export function toDayHeading(isoDateTime: string): string {
 export function toDayKey(isoDateTime: string): string {
   return isoDateTime.slice(0, 10);
 }
+
+/** "2027-10-14T14:00" — value an <input type="datetime-local"> expects, UTC components. */
+export function toDatetimeLocalValue(isoDateTime: string): string {
+  const d = new Date(isoDateTime);
+  const yyyy = d.getUTCFullYear();
+  const mm = String(d.getUTCMonth() + 1).padStart(2, '0');
+  const dd = String(d.getUTCDate()).padStart(2, '0');
+  const hh = String(d.getUTCHours()).padStart(2, '0');
+  const mi = String(d.getUTCMinutes()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}T${hh}:${mi}`;
+}
+
+/** Inverse of the above — treats the <input> value as UTC clock time, matching how times are seeded/stored. */
+export function fromDatetimeLocalValue(value: string): string {
+  return `${value}:00Z`;
+}

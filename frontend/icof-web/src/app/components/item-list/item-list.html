@@ -1,5 +1,5 @@
 <div class="item-list">
-  @for (item of items(); track item.title) {
+  @for (item of items(); track item.id) {
     <div class="item-card">
       <div class="info">
         <h3>{{ item.title }}</h3>
@@ -12,6 +12,12 @@
         <span>{{ item.day }} · {{ item.time }}</span>
         <span>{{ item.room }}</span>
       </div>
+      @if (isAdmin()) {
+        <div class="admin-actions">
+          <button type="button" class="admin-btn" (click)="edit.emit(item)">Edit</button>
+          <button type="button" class="admin-btn admin-btn-archive" (click)="archive.emit(item)">Archive</button>
+        </div>
+      }
     </div>
   }
 </div>

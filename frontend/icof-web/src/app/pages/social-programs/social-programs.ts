@@ -6,6 +6,7 @@ import { toDayLabel, toTimeLabel } from '../../core/congress-dates';
 
 function toProgrammeItem(e: EventDto): ProgrammeItem {
   return {
+    id: e.id,
     title: e.title,
     description: e.summary ?? '',
     day: toDayLabel(e.startsAtUtc),
