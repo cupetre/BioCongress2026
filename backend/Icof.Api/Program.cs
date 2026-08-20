@@ -45,7 +45,8 @@ builder.Services.AddCors(options =>
     options.AddPolicy(FrontendCorsPolicy, policy =>
     {
         policy.WithOrigins(
-                "http://localhost:4200", // Angular dev server
+                "http://localhost:4200", // Angular dev server (ng serve)
+                "http://localhost:4000", // Local docker compose (frontend container)
                 "http://78.46.249.178:4000" // Hetzner preview — remove once Azure replaces this
             )
             .AllowAnyHeader()
@@ -74,6 +75,10 @@ app.MapControllers();
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    // Applies any pending EF Core migrations on startup, creating the schema if the
+    // database is empty (e.g. a brand-new Postgres volume on a fresh server). Without
+    // this, seeding fails immediately with "relation ... does not exist".
+    await db.Database.MigrateAsync();
     await DataSeeder.SeedAsync(db);
 
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();

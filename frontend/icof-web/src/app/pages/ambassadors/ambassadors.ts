@@ -5,6 +5,7 @@ import { PeopleService } from '../../core/people.service';
 interface Ambassador {
   name: string;
   country: string;
+  shortBio: string;
   bio: string;
   initial: string;
   image?: string;
@@ -29,6 +30,7 @@ export class Ambassadors implements OnInit {
           name: m.fullName,
           // RoleTitle carries the country for ambassadors (e.g. "Serbia").
           country: m.roleTitle ?? '',
+          shortBio: m.shortBio ?? m.bio ?? '',
           bio: m.bio ?? m.shortBio ?? '',
           initial: m.fullName.charAt(0).toUpperCase(),
           image: m.photoUrl ?? undefined

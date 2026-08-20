@@ -19,24 +19,42 @@
 
 </div>
 
-<section class="team-section">
-  <div class="people-grid">
-    @for (ambassador of ambassadors(); track ambassador.name) {
-      <button class="person-card" (click)="open(ambassador)">
-        @if (ambassador.image) {
-        <img class="photo" [src]="ambassador.image" [alt]="ambassador.name">
-        } @else {
-        <div class="photo"></div>
-        <span class="initial">{{ ambassador.initial }}</span>
-        }
-        <div class="scrim"></div>
-        <div class="p-info">
-          <div class="pn">{{ ambassador.name }}</div>
-          <div class="pr">{{ ambassador.country }}</div>
-        </div>
-      </button>
-    }
+<section class="section team-section">
+
+  <div class="intro-line"></div>
+
+  <div class="composite">
+    <div class="composite-header">
+      <span class="composite-brand">ICOF</span>
+      <span class="composite-dot">•</span>
+      <h2>Ambassadors</h2>
+      <span class="composite-year">2027</span>
+    </div>
+
+    <div class="ambassador-rows">
+      @for (ambassador of ambassadors(); track ambassador.name; let i = $index) {
+        <button class="ambassador-row" [class.reverse]="i % 2 === 1" (click)="open(ambassador)">
+          <div class="ar-photo">
+            @if (ambassador.image) {
+            <img [src]="ambassador.image" [alt]="ambassador.name">
+            } @else {
+            <span class="cinitial">{{ ambassador.initial }}</span>
+            }
+          </div>
+          <div class="ar-info">
+            <h3 class="ar-name">{{ ambassador.name }}</h3>
+            @if (ambassador.country) {
+              <div class="ar-role">{{ ambassador.country }}</div>
+            }
+            @if (ambassador.shortBio) {
+              <p class="ar-bio">{{ ambassador.shortBio }}</p>
+            }
+          </div>
+        </button>
+      }
+    </div>
   </div>
+
 </section>
 
 @if (selectedAmbassador(); as ambassador) {

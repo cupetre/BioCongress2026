@@ -135,7 +135,7 @@
 
 .btn-primary {
   align-self: flex-start;
-  margin-top: 39%;
+  margin-top: auto;
   font-family: var(--font-sans);
   font-weight: 600;
   font-size: 16px;
@@ -192,21 +192,13 @@
 /* ---- Map ---- */
 
 .contact-map {
-  width: 100%;
+  width: 100vw;
   margin-top: 64px;
-  max-width: 1080px;
-  margin-left: auto;
-  margin-right: auto;
-
-
-}
-
-.contact-map iframe {
-  width: 100%;
-  height: 380px;
-  border: 0;
-  filter: grayscale(0) contrast(1.05);
-  align-content: center;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  padding: 0 var(--page-margin) 32px;
+  box-sizing: border-box;
+  background: var(--cream);
 }
 
 .contact-map .map-label {
@@ -216,7 +208,40 @@
   text-transform: uppercase;
   color: var(--navy);
   opacity: .6;
+  padding-top: 24px;
   margin-bottom: 14px;
+}
+
+.map-frame {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy);
+}
+
+.map-frame iframe {
+  width: 100%;
+  height: 420px;
+  border: 0;
+  display: block;
+
+  filter:
+    grayscale(1)
+    invert(1)
+    contrast(0.8)
+    brightness(0.75);
+}
+
+.map-frame .map-tint {
+  position: absolute;
+  inset: 0;
+
+  background: #13273F;
+
+  mix-blend-mode: color;
+
+  opacity: 0.7;
+
+  pointer-events: none;
 }
 
 @media (max-width: 900px) {
@@ -229,7 +254,7 @@
     gap: 40px;
   }
 
-  .contact-map iframe {
+  .map-frame iframe {
     height: 280px;
   }
 }

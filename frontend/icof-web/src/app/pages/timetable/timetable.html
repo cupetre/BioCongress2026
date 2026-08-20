@@ -8,10 +8,11 @@
 <section class="section">
   <div class="notebook-outer">
 
-    <div class="nb-tabs-top">
+    <!-- Which day -->
+    <div class="day-select">
       @for (day of days(); track day.id) {
         <button
-          class="nb-tab-top"
+          class="day-tab"
           [class.active]="day.id === activeDayId()"
           (click)="selectDay(day.id)"
         >
@@ -41,26 +42,44 @@
         </div>
 
         <div class="nb-page right">
-          <div class="nb-tabs">
-            @for (day of days(); track day.id) {
+
+          <div class="nb-page-header">
+            <div class="nb-page-title">{{ activeDay()?.label }}</div>
+
+            <!-- Which module / part of the day -->
+            <div class="period-select">
               <button
-                class="nb-tab"
-                [class.active]="day.id === activeDayId()"
-                (click)="selectDay(day.id)"
+                class="period-tab"
+                [class.active]="activePeriod() === 'all'"
+                (click)="selectPeriod('all')"
               >
-                {{ day.label }}
+                All day
               </button>
-            }
+              @for (period of periods; track period) {
+                <button
+                  class="period-tab"
+                  [class.active]="activePeriod() === period"
+                  [class.empty]="!periodsWithEntries().has(period)"
+                  (click)="selectPeriod(period)"
+                >
+                  {{ period }}
+                </button>
+              }
+            </div>
           </div>
 
-          @if (activeDay(); as day) {
+          @if (activeDay()) {
           <div class="nb-panel active">
-            @for (entry of day.entries; track entry.time) {
+            @for (entry of visibleEntries(); track entry.time + entry.title) {
               <div class="page-entry">
                 <span class="pe-time">{{ entry.time }}</span>
                 <span class="pe-title"><span [class]="'dot dot-' + entry.dot"></span>{{ entry.title }}</span>
-                <div class="pe-meta">{{ entry.meta }}</div>
+                @if (entry.meta) {
+                  <div class="pe-meta">{{ entry.meta }}</div>
+                }
               </div>
+            } @empty {
+              <div class="nb-empty">Nothing scheduled for this part of the day.</div>
             }
           </div>
           }

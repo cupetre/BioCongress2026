@@ -12,7 +12,7 @@
 
 .timeline-item {
   position: relative;
-  padding-bottom: 42px;
+  padding-bottom: 28px;
 }
 
 .timeline-item:last-child {
@@ -34,33 +34,33 @@
 .timeline-item .time {
   font-family: var(--font-mono);
   font-weight: 500;
-  font-size: 20px;
+  font-size: 14px;
   letter-spacing: .04em;
   color: var(--red);
-  margin-bottom: 7px;
+  margin-bottom: 5px;
 }
 
 .timeline-item h4 {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: 48px;
+  font-size: clamp(20px, 2.4vw, 27px);
   color: var(--navy);
-  margin-bottom: 7px;
+  margin-bottom: 5px;
 }
 
 .timeline-item p {
-  font-size: 18px;
+  font-size: 14.5px;
   color: rgba(20, 33, 46, .65);
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 .timeline-item .meta-row {
   display: flex;
   gap: 16px;
-  margin-top: 10px;
+  margin-top: 8px;
   flex-wrap: wrap;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 12px;
   letter-spacing: .04em;
   text-transform: uppercase;
   color: rgba(20, 33, 46, .5);

@@ -13,7 +13,6 @@
         <a href="mailto:hello@congress.mk">hello&#64;congress.mk</a>
         <a href="tel:+38921234567">+389 2 123 4567</a>
         <a href="#">Instagram ↗</a>
-        <a href="#">LinkedIn ↗</a>
       </div>
     </div>
 
@@ -58,8 +57,19 @@
           <input id="c-phone" type="tel" formControlName="phone" placeholder="+389 …">
         </div>
 
-
-
+        <div class="field">
+          <label for="c-message">Message</label>
+          <textarea
+            id="c-message"
+            rows="6"
+            formControlName="message"
+            placeholder="Tell us what this is about…"
+            [class.invalid]="isInvalid('message')"
+          ></textarea>
+          @if (isInvalid('message')) {
+            <span class="field-error">Message should be at least 10 characters.</span>
+          }
+        </div>
 
         <button class="btn-primary" type="submit" [disabled]="status() === 'submitting'">
           {{ status() === 'submitting' ? 'Sending…' : 'Send' }}
@@ -70,12 +80,15 @@
 
   <div class="contact-map">
     <div class="map-label">Find us</div>
-    <iframe
-      src="https://www.google.com/maps?q=Faculty+of+Medicine+Skopje+North+Macedonia&output=embed"
-      loading="lazy"
-      referrerpolicy="no-referrer-when-downgrade"
-      title="Faculty of Medicine, Skopje location"
-    ></iframe>
+    <div class="map-frame">
+      <iframe
+        src="https://www.google.com/maps?q=Faculty+of+Medicine+Skopje+North+Macedonia&output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        title="Faculty of Medicine, Skopje location"
+      ></iframe>
+      <div class="map-tint"></div>
+    </div>
   </div>
 
 </section>

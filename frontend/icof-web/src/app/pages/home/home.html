@@ -35,7 +35,7 @@
             <span>↗</span>
           </a>
 
-          <a href="#register" class="secondary-btn">
+          <a routerLink="/registration" class="secondary-btn">
             JOIN THE CONGRESS
           </a>
         </div>
@@ -95,7 +95,7 @@
         the world.
       </p>
 
-      <a href="#register" class="text-link">
+      <a routerLink="/registration" class="text-link">
         REGISTER NOW →
       </a>
 
@@ -128,7 +128,6 @@
 
   </section>
 
-
   <!-- STATS -->
   <section class="stats">
 
@@ -153,6 +152,14 @@
     </div>
 
   </section>
+
+    <!-- MARQUEE -->
+  <div class="marquee-wrap">
+    <div class="marquee">
+      <span>Macedonia</span><span>Serbia</span><span>Greece</span><span>Bulgaria</span><span>Albania</span><span>Cardiology</span><span>Neurology</span><span>Public Health</span><span>Surgery</span>
+      <span>Macedonia</span><span>Serbia</span><span>Greece</span><span>Bulgaria</span><span>Albania</span><span>Cardiology</span><span>Neurology</span><span>Public Health</span><span>Surgery</span>
+    </div>
+  </div>
 
 
   <!-- ABOUT -->
@@ -208,6 +215,12 @@
 
     <div class="about-image">
 
+      <video class="about-video" autoplay muted loop playsinline preload="metadata">
+        <source src="https://icofmedia.blob.core.windows.net/media/about_video.mp4" type="video/mp4">
+      </video>
+
+      <div class="about-image-scrim"></div>
+
       <div class="about-image-text">
         <span>ICOF</span>
         <small>SCIENCE BEYOND BORDERS</small>
@@ -248,7 +261,7 @@
             <circle cx="19" cy="6" r="2"/>
           </svg>
         </span>
-          <span class="menu-label">Medical Provesionals</span>
+          <span class="menu-label">Medical Students</span>
           <span class="menu-arrow">→</span>
         </li>
 
@@ -259,7 +272,7 @@
             <path d="M6 11.5V17c0 1.5 3 3 6 3s6-1.5 6-3v-5.5"/>
           </svg>
         </span>
-          <span class="menu-label">Students</span>
+          <span class="menu-label">Ambassadors</span>
           <span class="menu-arrow">→</span>
         </li>
 
@@ -274,59 +287,52 @@
           <span class="menu-arrow">→</span>
         </li>
 
-        <li>
-        <span class="menu-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2 12h4l2-7 4 14 2-9 2 2h6"/>
-          </svg>
-        </span>
-          <span class="menu-label">Retards</span>
-          <span class="menu-arrow">→</span>
-        </li>
       </ul>
     </div>
 
     <!-- RIGHT -->
     <div class="team-right">
 
-      <button class="nav-arrow" aria-label="previous">←</button>
-
-      <div class="cards">
+      <div class="cards" [class.fading]="fading()">
 
         <div class="card side left">
-          <div class="photo-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
-          </div>
+          @if (teamCards()[0]?.image; as img) {
+            <img [src]="img" [alt]="teamCards()[0].name">
+          } @else {
+            <div class="photo-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            </div>
+          }
         </div>
 
         <div class="card main">
-          <div class="plus-btn">+</div>
-          <div class="badge">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 4v6M9 7h6"/>
-              <circle cx="12" cy="12" r="9"/>
-            </svg>
-          </div>
-          <div class="photo-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
-          </div>
+          @if (teamCards()[1]?.image; as img) {
+            <img [src]="img" [alt]="teamCards()[1].name">
+          } @else {
+            <div class="photo-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            </div>
+          }
           <div class="card-info">
-            <p class="role">Surgeon</p>
-            <div class="info-line"></div>
-            <h3>Dr. Cupizo</h3>
-            <p class="caption">Si bil na rabota</p>
+            @if (teamCards()[1]; as person) {
+              <p class="role">{{ person.role }}</p>
+              <div class="info-line"></div>
+              <h3>{{ person.name }}</h3>
+            }
           </div>
         </div>
 
         <div class="card side right">
-          <div class="photo-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
-          </div>
+          @if (teamCards()[2]?.image; as img) {
+            <img [src]="img" [alt]="teamCards()[2].name">
+          } @else {
+            <div class="photo-placeholder">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.2"><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            </div>
+          }
         </div>
 
       </div>
-
-      <button class="nav-arrow" aria-label="next">→</button>
 
     </div>
 
@@ -338,14 +344,13 @@
 
     <div class="statement-inner">
 
-
       <h2>
         Every October, the curtain rises on a new<br>
-        generation of medicine
+        generation of medicine.
       </h2>
 
       <p>
-        -OPPENING REMARKS, 2ND EDITION
+        — Opening remarks, 2nd edition
       </p>
 
     </div>
@@ -450,9 +455,6 @@
     <p class="supporters-tagline">Together, we are shaping the future of medicine.</p>
 
   </section>
-
-
-  <!-- CONTACT -->
 
 
 </main>

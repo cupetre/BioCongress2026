@@ -58,86 +58,170 @@
 
 
 .team-section {
-  background: var(--navy);
-  padding: 96px var(--page-margin);
+  background: var(--cream);
+  padding: 36px var(--page-margin) 96px;
 }
 
-.people-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-  max-width: 1100px;
-  margin: 0 auto;
+/* ---- Intro line + blurb ---- */
+
+.intro-line {
+  width: 56px;
+  height: 2px;
+  background: var(--red);
+  margin: 0 auto 18px;
 }
 
-.person-card {
-  aspect-ratio: 3 / 4;
+.intro-blurb {
+  max-width: 640px;
+  margin: 0 auto clamp(2rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.intro-blurb p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.75;
+  color: rgba(20, 33, 46, .62);
+}
+
+/* ---- Composite (same treatment as the Members page) ---- */
+
+.composite {
   position: relative;
-  border-radius: 2px;
-  overflow: hidden;
-  cursor: pointer;
-  background: none;
-  border: none;
+  width: min(100%, 70rem);
+  margin: 0 auto;
+  padding: clamp(2rem, 4vw, 3rem) clamp(1.25rem, 3vw, 2.5rem);
+}
+
+.composite-header {
+  position: relative;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.composite-brand {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(20, 33, 46, 0.5);
+}
+
+.composite-header h2 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.9vw, 1.95rem);
+  font-weight: 500;
+  color: var(--navy);
+}
+
+.composite-dot {
+  margin: 0.35rem 0;
+  color: var(--navy);
+  font-size: 0.85rem;
+}
+
+.composite-year {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: rgba(20, 33, 46, 0.5);
+}
+
+/* ---- Alternating photo/bio rows ---- */
+
+.ambassador-rows {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2.5rem, 5vw, 4rem);
+}
+
+.ambassador-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 3.5rem);
+
+  width: min(80%, 60rem);
+  margin: 0 auto;
+
   padding: 0;
+  background: transparent;
+  border: none;
   text-align: left;
-  display: block;
-  width: 100%;
+  font-family: inherit;
+  cursor: pointer;
 }
 
-.person-card .photo {
-  position: absolute;
-  inset: 0;
-  background: repeating-linear-gradient(115deg, rgba(0, 0, 0, .15) 0 10px, transparent 10px 20px), linear-gradient(155deg, #2c4a68, var(--navy-deep));
+.ambassador-row.reverse {
+  flex-direction: row-reverse;
 }
 
-.person-card img.photo {
+.ar-photo {
+  flex: 0 0 clamp(220px, 30vw, 320px);
+  width: clamp(220px, 30vw, 320px);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  position: relative;
+  background: #d8d8d8;
+  box-shadow: 0 0.6rem 1.4rem rgba(20, 33, 46, 0.2);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.ar-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center top;
   display: block;
 }
 
-.person-card .initial {
+.ar-photo .cinitial {
   position: absolute;
   inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: var(--font-display);
-  font-size: 50px;
-  color: rgba(225, 224, 206, .16);
+  font-size: 4rem;
+  color: rgba(19, 39, 63, .35);
 }
 
-.person-card .scrim {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(0deg, rgba(10, 24, 38, .92), transparent 55%);
+.ambassador-row:hover .ar-photo {
+  transform: translateY(-0.3rem);
+  box-shadow: 0 1rem 2rem rgba(20, 33, 46, 0.3);
 }
 
-.person-card .p-info {
-  position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 14px;
-  color: var(--cream);
+.ar-info {
+  flex: 1;
+  min-width: 0;
 }
 
-.person-card .p-info .pn {
+.ar-name {
   font-family: var(--font-display);
-  font-size: 16px;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  color: var(--navy);
+  margin: 0 0 0.3rem;
 }
 
-.person-card .p-info .pr {
+.ar-role {
   font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: .05em;
-  color: var(--blue);
-  margin-top: 3px;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 0.9rem;
 }
 
-.person-card:hover .photo {
-  outline: 1px solid var(--blue);
-  outline-offset: -1px;
+.ar-bio {
+  font-size: 0.98rem;
+  line-height: 1.75;
+  color: rgba(20, 33, 46, .68);
+  margin: 0;
 }
 
 /* ---- Modal ---- */
@@ -204,7 +288,27 @@
     padding: 64px var(--page-margin);
   }
 
-  .people-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .ambassador-row {
+    width: min(92%, 60rem);
+  }
+}
+
+@media (max-width: 700px) {
+  .ambassador-row,
+  .ambassador-row.reverse {
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 1.4rem;
+  }
+
+  .ar-photo {
+    width: 100%;
+    max-width: 280px;
+    flex: none;
+  }
+
+  .ar-info {
+    text-align: left;
   }
 }

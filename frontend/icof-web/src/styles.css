@@ -41,6 +41,11 @@ body {
   background: var(--cream);
   color: var(--text);
   font-family: 'DM Sans', sans-serif;
+  /* Full-bleed sections (e.g. the Contact page map) use width:100vw with a negative
+     margin to break out of their container's padding. 100vw includes the scrollbar's
+     own width, which pushes the page a few pixels wider than the viewport and causes
+     a horizontal scrollbar/wobble. Clipping it here is the standard fix. */
+  overflow-x: hidden;
 }
 
 

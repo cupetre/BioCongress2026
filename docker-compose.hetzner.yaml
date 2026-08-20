@@ -1,0 +1,14 @@
+# Override for running on the Hetzner preview server. Bakes the Hetzner IP into the
+# frontend build instead of the local-dev default (localhost:8080).
+#
+# Usage on the Hetzner server:
+#   docker compose -f docker-compose.yaml -f docker-compose.hetzner.yaml up --build -d
+#
+# On your own PC, just use the plain `docker compose up --build` (no override file) —
+# that bakes in localhost:8080 and talks to your local api/postgres containers.
+
+services:
+  web:
+    build:
+      args:
+        NG_CONFIGURATION: hetzner

@@ -38,6 +38,17 @@ export function toDayKey(isoDateTime: string): string {
   return isoDateTime.slice(0, 10);
 }
 
+export type DayPeriod = 'Morning' | 'Afternoon' | 'Evening';
+
+/** Which part of the day an event falls in, based on its UTC start hour — used to split
+ * the Timetable's day view into Morning / Afternoon / Evening modules. */
+export function toDayPeriod(isoDateTime: string): DayPeriod {
+  const hour = new Date(isoDateTime).getUTCHours();
+  if (hour < 12) return 'Morning';
+  if (hour < 17) return 'Afternoon';
+  return 'Evening';
+}
+
 /** "2027-10-14T14:00" — value an <input type="datetime-local"> expects, UTC components. */
 export function toDatetimeLocalValue(isoDateTime: string): string {
   const d = new Date(isoDateTime);
